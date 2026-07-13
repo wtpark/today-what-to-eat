@@ -1,0 +1,3839 @@
+[
+  {
+    "id": "kr_kimchi_stew",
+    "name": "돼지고기·참치 김치찌개",
+    "cuisine": "한식",
+    "meal_type": "국·찌개",
+    "cooking_method": "끓이기",
+    "cook_time": 30,
+    "tools": [
+      "냄비"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "kimchi",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "pork",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "canned_tuna",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "tofu",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "gochugaru",
+        "required": false
+      },
+      {
+        "seasoning_id": "minced_garlic",
+        "required": false
+      },
+      {
+        "seasoning_id": "soup_soy",
+        "required": false
+      }
+    ],
+    "min_core_count": 1,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_kimchi_stew"
+  },
+  {
+    "id": "kr_doenjang_stew",
+    "name": "두부 된장찌개",
+    "cuisine": "한식",
+    "meal_type": "국·찌개",
+    "cooking_method": "끓이기",
+    "cook_time": 25,
+    "tools": [
+      "냄비"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "tofu",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "zucchini",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "mushroom",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "doenjang",
+        "required": true
+      },
+      {
+        "seasoning_id": "minced_garlic",
+        "required": false
+      },
+      {
+        "seasoning_id": "soup_soy",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_doenjang_stew"
+  },
+  {
+    "id": "kr_spicy_pork",
+    "name": "제육볶음",
+    "cuisine": "한식",
+    "meal_type": "볶음·구이",
+    "cooking_method": "볶기",
+    "cook_time": 25,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "pork",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "cabbage",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "gochujang",
+        "required": true
+      },
+      {
+        "seasoning_id": "soy_sauce",
+        "required": false
+      },
+      {
+        "seasoning_id": "minced_garlic",
+        "required": false
+      },
+      {
+        "seasoning_id": "gochugaru",
+        "required": false
+      },
+      {
+        "seasoning_id": "sugar",
+        "required": false
+      },
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_spicy_pork"
+  },
+  {
+    "id": "kr_dakgalbi",
+    "name": "닭갈비",
+    "cuisine": "한식",
+    "meal_type": "볶음·구이",
+    "cooking_method": "볶기",
+    "cook_time": 35,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "chicken",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "cabbage",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "potato",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "carrot",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "gochujang",
+        "required": true
+      },
+      {
+        "seasoning_id": "soy_sauce",
+        "required": false
+      },
+      {
+        "seasoning_id": "minced_garlic",
+        "required": false
+      },
+      {
+        "seasoning_id": "sugar",
+        "required": false
+      },
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_dakgalbi"
+  },
+  {
+    "id": "kr_egg_fried_rice",
+    "name": "계란볶음밥",
+    "cuisine": "한식",
+    "meal_type": "밥·덮밥",
+    "cooking_method": "볶기",
+    "cook_time": 15,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "cooked_rice",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "egg",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "carrot",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "sausage",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "soy_sauce",
+        "required": false
+      },
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      },
+      {
+        "seasoning_id": "salt",
+        "required": false
+      },
+      {
+        "seasoning_id": "pepper",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_egg_fried_rice"
+  },
+  {
+    "id": "kr_braised_tofu",
+    "name": "두부조림",
+    "cuisine": "한식",
+    "meal_type": "반찬",
+    "cooking_method": "조리기",
+    "cook_time": 20,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "tofu",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "soy_sauce",
+        "required": true
+      },
+      {
+        "seasoning_id": "gochugaru",
+        "required": false
+      },
+      {
+        "seasoning_id": "minced_garlic",
+        "required": false
+      },
+      {
+        "seasoning_id": "sugar",
+        "required": false
+      },
+      {
+        "seasoning_id": "sesame_oil",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_braised_tofu"
+  },
+  {
+    "id": "kr_bibim_noodle",
+    "name": "비빔국수",
+    "cuisine": "한식",
+    "meal_type": "면",
+    "cooking_method": "비비기",
+    "cook_time": 15,
+    "tools": [
+      "냄비"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "thin_noodle",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "lettuce",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "egg",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "gochujang",
+        "required": true
+      },
+      {
+        "seasoning_id": "vinegar",
+        "required": true
+      },
+      {
+        "seasoning_id": "sugar",
+        "required": false
+      },
+      {
+        "seasoning_id": "sesame_oil",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_bibim_noodle"
+  },
+  {
+    "id": "kr_kimchi_fried_rice",
+    "name": "김치볶음밥",
+    "cuisine": "한식",
+    "meal_type": "밥·덮밥",
+    "cooking_method": "볶기",
+    "cook_time": 18,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "cooked_rice",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "kimchi",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "egg",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "canned_tuna",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "sausage",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      },
+      {
+        "seasoning_id": "soy_sauce",
+        "required": false
+      },
+      {
+        "seasoning_id": "gochujang",
+        "required": false
+      },
+      {
+        "seasoning_id": "sesame_oil",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_kimchi_fried_rice"
+  },
+  {
+    "id": "cn_mapo_tofu",
+    "name": "마파두부",
+    "cuisine": "중식",
+    "meal_type": "밥·덮밥",
+    "cooking_method": "볶고 끓이기",
+    "cook_time": 25,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "tofu",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "pork",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "beef",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "doubanjiang",
+        "required": true
+      },
+      {
+        "seasoning_id": "soy_sauce",
+        "required": false
+      },
+      {
+        "seasoning_id": "minced_garlic",
+        "required": false
+      },
+      {
+        "seasoning_id": "starch",
+        "required": false
+      },
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      }
+    ],
+    "min_core_count": 1,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "cn_mapo_tofu"
+  },
+  {
+    "id": "cn_tomato_egg",
+    "name": "토마토 달걀볶음",
+    "cuisine": "중식",
+    "meal_type": "볶음·구이",
+    "cooking_method": "볶기",
+    "cook_time": 12,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "tomato",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "egg",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      },
+      {
+        "seasoning_id": "salt",
+        "required": false
+      },
+      {
+        "seasoning_id": "sugar",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "cn_tomato_egg"
+  },
+  {
+    "id": "cn_pork_bokchoy",
+    "name": "돼지고기 청경채볶음",
+    "cuisine": "중식",
+    "meal_type": "볶음·구이",
+    "cooking_method": "볶기",
+    "cook_time": 20,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "pork",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "bok_choy",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "bell_pepper",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "oyster_sauce",
+        "required": true
+      },
+      {
+        "seasoning_id": "soy_sauce",
+        "required": false
+      },
+      {
+        "seasoning_id": "minced_garlic",
+        "required": false
+      },
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "cn_pork_bokchoy"
+  },
+  {
+    "id": "cn_shrimp_fried_rice",
+    "name": "새우볶음밥",
+    "cuisine": "중식",
+    "meal_type": "밥·덮밥",
+    "cooking_method": "볶기",
+    "cook_time": 18,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "cooked_rice",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "shrimp",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "egg",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "carrot",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      },
+      {
+        "seasoning_id": "soy_sauce",
+        "required": false
+      },
+      {
+        "seasoning_id": "salt",
+        "required": false
+      },
+      {
+        "seasoning_id": "pepper",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "cn_shrimp_fried_rice"
+  },
+  {
+    "id": "cn_pepper_pork",
+    "name": "고추잡채 스타일 돼지고기볶음",
+    "cuisine": "중식",
+    "meal_type": "볶음·구이",
+    "cooking_method": "볶기",
+    "cook_time": 25,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "pork",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "bell_pepper",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "bread",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "oyster_sauce",
+        "required": true
+      },
+      {
+        "seasoning_id": "soy_sauce",
+        "required": false
+      },
+      {
+        "seasoning_id": "minced_garlic",
+        "required": false
+      },
+      {
+        "seasoning_id": "starch",
+        "required": false
+      },
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "cn_pepper_pork"
+  },
+  {
+    "id": "cn_chicken_oyster",
+    "name": "닭고기 굴소스볶음",
+    "cuisine": "중식",
+    "meal_type": "볶음·구이",
+    "cooking_method": "볶기",
+    "cook_time": 22,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "chicken",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "broccoli",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "bell_pepper",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "oyster_sauce",
+        "required": true
+      },
+      {
+        "seasoning_id": "soy_sauce",
+        "required": false
+      },
+      {
+        "seasoning_id": "minced_garlic",
+        "required": false
+      },
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "cn_chicken_oyster"
+  },
+  {
+    "id": "cn_eggplant",
+    "name": "중화풍 가지볶음",
+    "cuisine": "중식",
+    "meal_type": "반찬",
+    "cooking_method": "볶기",
+    "cook_time": 18,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "eggplant",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "pork",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "soy_sauce",
+        "required": true
+      },
+      {
+        "seasoning_id": "minced_garlic",
+        "required": false
+      },
+      {
+        "seasoning_id": "sugar",
+        "required": false
+      },
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      },
+      {
+        "seasoning_id": "doubanjiang",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "cn_eggplant"
+  },
+  {
+    "id": "cn_jjajang_noodle",
+    "name": "간짜장풍 볶음면",
+    "cuisine": "중식",
+    "meal_type": "면",
+    "cooking_method": "볶기",
+    "cook_time": 30,
+    "tools": [
+      "프라이팬",
+      "냄비"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "chinese_noodle",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "pork",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "zucchini",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "cabbage",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "chunjang",
+        "required": true
+      },
+      {
+        "seasoning_id": "sugar",
+        "required": false
+      },
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      }
+    ],
+    "min_core_count": 1,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "cn_jjajang_noodle"
+  },
+  {
+    "id": "jp_gyudon",
+    "name": "규동",
+    "cuisine": "일식",
+    "meal_type": "밥·덮밥",
+    "cooking_method": "조리기",
+    "cook_time": 20,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "cooked_rice",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "beef",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "egg",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "soy_sauce",
+        "required": true
+      },
+      {
+        "seasoning_id": "sugar",
+        "required": false
+      },
+      {
+        "seasoning_id": "mirin",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "jp_gyudon"
+  },
+  {
+    "id": "jp_oyakodon",
+    "name": "오야코동",
+    "cuisine": "일식",
+    "meal_type": "밥·덮밥",
+    "cooking_method": "조리기",
+    "cook_time": 22,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "cooked_rice",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "chicken",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "egg",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "must",
+        "weight": 3
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "soy_sauce",
+        "required": true
+      },
+      {
+        "seasoning_id": "sugar",
+        "required": false
+      },
+      {
+        "seasoning_id": "mirin",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "jp_oyakodon"
+  },
+  {
+    "id": "jp_udon",
+    "name": "가케우동 스타일 국물우동",
+    "cuisine": "일식",
+    "meal_type": "면",
+    "cooking_method": "끓이기",
+    "cook_time": 15,
+    "tools": [
+      "냄비"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "udon_noodle",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "mushroom",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "egg",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "soup_soy",
+        "required": true
+      },
+      {
+        "seasoning_id": "soy_sauce",
+        "required": false
+      },
+      {
+        "seasoning_id": "salt",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "jp_udon"
+  },
+  {
+    "id": "jp_yaki_udon",
+    "name": "야키우동",
+    "cuisine": "일식",
+    "meal_type": "면",
+    "cooking_method": "볶기",
+    "cook_time": 20,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "udon_noodle",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "cabbage",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "pork",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "chicken",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "shrimp",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "carrot",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "soy_sauce",
+        "required": true
+      },
+      {
+        "seasoning_id": "oyster_sauce",
+        "required": false
+      },
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      }
+    ],
+    "min_core_count": 1,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "jp_yaki_udon"
+  },
+  {
+    "id": "jp_okonomiyaki",
+    "name": "오코노미야키 스타일 양배추전",
+    "cuisine": "일식",
+    "meal_type": "간단식",
+    "cooking_method": "부치기",
+    "cook_time": 25,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "cabbage",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "egg",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "pork",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "shrimp",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "pancake_mix",
+        "required": true
+      },
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      },
+      {
+        "seasoning_id": "ketchup",
+        "required": false
+      },
+      {
+        "seasoning_id": "mayonnaise",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "jp_okonomiyaki"
+  },
+  {
+    "id": "jp_teriyaki_chicken",
+    "name": "데리야키 치킨",
+    "cuisine": "일식",
+    "meal_type": "볶음·구이",
+    "cooking_method": "굽기",
+    "cook_time": 25,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "chicken",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "broccoli",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "soy_sauce",
+        "required": true
+      },
+      {
+        "seasoning_id": "sugar",
+        "required": false
+      },
+      {
+        "seasoning_id": "mirin",
+        "required": false
+      },
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "jp_teriyaki_chicken"
+  },
+  {
+    "id": "jp_nikujaga",
+    "name": "니쿠자가",
+    "cuisine": "일식",
+    "meal_type": "국·찌개",
+    "cooking_method": "조리기",
+    "cook_time": 35,
+    "tools": [
+      "냄비"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "beef",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "potato",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "carrot",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "soy_sauce",
+        "required": true
+      },
+      {
+        "seasoning_id": "sugar",
+        "required": false
+      },
+      {
+        "seasoning_id": "mirin",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "jp_nikujaga"
+  },
+  {
+    "id": "jp_tamagoyaki",
+    "name": "일본식 계란말이",
+    "cuisine": "일식",
+    "meal_type": "반찬",
+    "cooking_method": "부치기",
+    "cook_time": 15,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "egg",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "sugar",
+        "required": false
+      },
+      {
+        "seasoning_id": "soup_soy",
+        "required": false
+      },
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      },
+      {
+        "seasoning_id": "salt",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "jp_tamagoyaki"
+  },
+  {
+    "id": "ws_tomato_pasta",
+    "name": "토마토 파스타",
+    "cuisine": "양식",
+    "meal_type": "면",
+    "cooking_method": "삶고 볶기",
+    "cook_time": 25,
+    "tools": [
+      "냄비",
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "pasta",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "tomato_sauce",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "mushroom",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "olive_oil",
+        "required": false
+      },
+      {
+        "seasoning_id": "minced_garlic",
+        "required": false
+      },
+      {
+        "seasoning_id": "salt",
+        "required": false
+      },
+      {
+        "seasoning_id": "basil",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "ws_tomato_pasta"
+  },
+  {
+    "id": "ws_cream_pasta",
+    "name": "크림 파스타",
+    "cuisine": "양식",
+    "meal_type": "면",
+    "cooking_method": "삶고 볶기",
+    "cook_time": 30,
+    "tools": [
+      "냄비",
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "pasta",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "cream",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "milk",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "hard_cheese",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "mushroom",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "butter",
+        "required": false
+      },
+      {
+        "seasoning_id": "salt",
+        "required": false
+      },
+      {
+        "seasoning_id": "pepper",
+        "required": false
+      }
+    ],
+    "min_core_count": 1,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "ws_cream_pasta"
+  },
+  {
+    "id": "ws_aglio_olio",
+    "name": "알리오 올리오",
+    "cuisine": "양식",
+    "meal_type": "면",
+    "cooking_method": "삶고 볶기",
+    "cook_time": 20,
+    "tools": [
+      "냄비",
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "pasta",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "garlic",
+        "role": "must",
+        "weight": 3
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "olive_oil",
+        "required": true
+      },
+      {
+        "seasoning_id": "salt",
+        "required": false
+      },
+      {
+        "seasoning_id": "pepper",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "ws_aglio_olio"
+  },
+  {
+    "id": "ws_chicken_steak",
+    "name": "치킨 스테이크",
+    "cuisine": "양식",
+    "meal_type": "볶음·구이",
+    "cooking_method": "굽기",
+    "cook_time": 30,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "chicken",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "potato",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "broccoli",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      },
+      {
+        "seasoning_id": "salt",
+        "required": false
+      },
+      {
+        "seasoning_id": "pepper",
+        "required": false
+      },
+      {
+        "seasoning_id": "butter",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "ws_chicken_steak"
+  },
+  {
+    "id": "ws_beef_stew",
+    "name": "비프 토마토 스튜",
+    "cuisine": "양식",
+    "meal_type": "국·찌개",
+    "cooking_method": "끓이기",
+    "cook_time": 50,
+    "tools": [
+      "냄비"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "beef",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "tomato_sauce",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "potato",
+        "role": "must",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "must",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "carrot",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "butter",
+        "required": false
+      },
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      },
+      {
+        "seasoning_id": "salt",
+        "required": false
+      },
+      {
+        "seasoning_id": "pepper",
+        "required": false
+      },
+      {
+        "seasoning_id": "ketchup",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "ws_beef_stew"
+  },
+  {
+    "id": "ws_cheese_omelette",
+    "name": "치즈 오믈렛",
+    "cuisine": "양식",
+    "meal_type": "간단식",
+    "cooking_method": "부치기",
+    "cook_time": 15,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "egg",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "hard_cheese",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "mozzarella",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "sliced_cheese",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "mushroom",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "tomato",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "butter",
+        "required": false
+      },
+      {
+        "seasoning_id": "salt",
+        "required": false
+      },
+      {
+        "seasoning_id": "pepper",
+        "required": false
+      }
+    ],
+    "min_core_count": 1,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "ws_cheese_omelette"
+  },
+  {
+    "id": "ws_tortilla_pizza",
+    "name": "또띠아 피자",
+    "cuisine": "양식",
+    "meal_type": "간단식",
+    "cooking_method": "굽기",
+    "cook_time": 15,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "tortilla",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "mozzarella",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "tomato_sauce",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "sausage",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "bell_pepper",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "ketchup",
+        "required": false
+      },
+      {
+        "seasoning_id": "oregano",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "ws_tortilla_pizza"
+  },
+  {
+    "id": "ws_mushroom_risotto",
+    "name": "버섯 리소토",
+    "cuisine": "양식",
+    "meal_type": "밥·덮밥",
+    "cooking_method": "조리기",
+    "cook_time": 35,
+    "tools": [
+      "냄비"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "cooked_rice",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "mushroom",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "milk",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "cream",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "hard_cheese",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "butter",
+        "required": false
+      },
+      {
+        "seasoning_id": "salt",
+        "required": false
+      },
+      {
+        "seasoning_id": "pepper",
+        "required": false
+      }
+    ],
+    "min_core_count": 1,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "ws_mushroom_risotto"
+  },
+  {
+    "id": "kr_soft_tofu_stew",
+    "name": "순두부찌개",
+    "cuisine": "한식",
+    "meal_type": "국·찌개",
+    "cooking_method": "끓이기",
+    "cook_time": 25,
+    "tools": [
+      "냄비"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "soft_tofu",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "pork",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "shrimp",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "egg",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "gochugaru",
+        "required": true
+      },
+      {
+        "seasoning_id": "minced_garlic",
+        "required": false
+      },
+      {
+        "seasoning_id": "soup_soy",
+        "required": false
+      }
+    ],
+    "min_core_count": 1,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_soft_tofu_stew"
+  },
+  {
+    "id": "kr_kimchi_pancake",
+    "name": "김치전",
+    "cuisine": "한식",
+    "meal_type": "간단식",
+    "cooking_method": "부치기",
+    "cook_time": 20,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "kimchi",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "flour",
+        "role": "must",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "squid",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      },
+      {
+        "seasoning_id": "salt",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_kimchi_pancake"
+  },
+  {
+    "id": "kr_potato_pancake",
+    "name": "감자전",
+    "cuisine": "한식",
+    "meal_type": "간단식",
+    "cooking_method": "부치기",
+    "cook_time": 20,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "potato",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "starch",
+        "required": false
+      },
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      },
+      {
+        "seasoning_id": "salt",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_potato_pancake"
+  },
+  {
+    "id": "kr_braised_chicken",
+    "name": "닭볶음탕",
+    "cuisine": "한식",
+    "meal_type": "국·찌개",
+    "cooking_method": "조리기",
+    "cook_time": 45,
+    "tools": [
+      "냄비"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "chicken",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "potato",
+        "role": "must",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "carrot",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "gochujang",
+        "required": true
+      },
+      {
+        "seasoning_id": "gochugaru",
+        "required": false
+      },
+      {
+        "seasoning_id": "soy_sauce",
+        "required": false
+      },
+      {
+        "seasoning_id": "minced_garlic",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_braised_chicken"
+  },
+  {
+    "id": "cn_egg_drop_soup",
+    "name": "중식 달걀국",
+    "cuisine": "중식",
+    "meal_type": "국·찌개",
+    "cooking_method": "끓이기",
+    "cook_time": 12,
+    "tools": [
+      "냄비"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "egg",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "mushroom",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "chicken_stock",
+        "required": false
+      },
+      {
+        "seasoning_id": "salt",
+        "required": false
+      },
+      {
+        "seasoning_id": "pepper",
+        "required": false
+      },
+      {
+        "seasoning_id": "starch",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "cn_egg_drop_soup"
+  },
+  {
+    "id": "cn_pork_sprout",
+    "name": "숙주 돼지고기볶음",
+    "cuisine": "중식",
+    "meal_type": "볶음·구이",
+    "cooking_method": "볶기",
+    "cook_time": 18,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "pork",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "mung_bean_sprouts",
+        "role": "must",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "soy_sauce",
+        "required": false
+      },
+      {
+        "seasoning_id": "oyster_sauce",
+        "required": false
+      },
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "cn_pork_sprout"
+  },
+  {
+    "id": "cn_chow_mein",
+    "name": "중화풍 볶음면",
+    "cuisine": "중식",
+    "meal_type": "면",
+    "cooking_method": "볶기",
+    "cook_time": 20,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "chinese_noodle",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "cabbage",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "mung_bean_sprouts",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "pork",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "chicken",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "carrot",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "soy_sauce",
+        "required": true
+      },
+      {
+        "seasoning_id": "oyster_sauce",
+        "required": false
+      },
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      }
+    ],
+    "min_core_count": 2,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "cn_chow_mein"
+  },
+  {
+    "id": "cn_mapo_eggplant",
+    "name": "마파가지",
+    "cuisine": "중식",
+    "meal_type": "밥·덮밥",
+    "cooking_method": "볶기",
+    "cook_time": 22,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "eggplant",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "ground_meat",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "pork",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "doubanjiang",
+        "required": true
+      },
+      {
+        "seasoning_id": "soy_sauce",
+        "required": false
+      },
+      {
+        "seasoning_id": "minced_garlic",
+        "required": false
+      },
+      {
+        "seasoning_id": "starch",
+        "required": false
+      }
+    ],
+    "min_core_count": 1,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "cn_mapo_eggplant"
+  },
+  {
+    "id": "jp_curry_rice",
+    "name": "일본식 카레라이스",
+    "cuisine": "일식",
+    "meal_type": "밥·덮밥",
+    "cooking_method": "끓이기",
+    "cook_time": 35,
+    "tools": [
+      "냄비"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "cooked_rice",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "potato",
+        "role": "must",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "must",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "carrot",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "pork",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "chicken",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "beef",
+        "role": "core",
+        "weight": 2
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "curry_powder",
+        "required": true
+      }
+    ],
+    "min_core_count": 1,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "jp_curry_rice"
+  },
+  {
+    "id": "jp_omurice",
+    "name": "오므라이스",
+    "cuisine": "일식",
+    "meal_type": "밥·덮밥",
+    "cooking_method": "볶기",
+    "cook_time": 25,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "cooked_rice",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "egg",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "carrot",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "ham",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "chicken",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "ketchup",
+        "required": true
+      },
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "jp_omurice"
+  },
+  {
+    "id": "jp_miso_tofu_soup",
+    "name": "일본식 된장 두부국",
+    "cuisine": "일식",
+    "meal_type": "국·찌개",
+    "cooking_method": "끓이기",
+    "cook_time": 15,
+    "tools": [
+      "냄비"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "tofu",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "wakame",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "mushroom",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "doenjang",
+        "required": true
+      },
+      {
+        "seasoning_id": "bonito_stock",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "jp_miso_tofu_soup"
+  },
+  {
+    "id": "jp_shogayaki",
+    "name": "돼지고기 생강구이 스타일",
+    "cuisine": "일식",
+    "meal_type": "볶음·구이",
+    "cooking_method": "볶기",
+    "cook_time": 20,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "pork",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "must",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "cabbage",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "soy_sauce",
+        "required": true
+      },
+      {
+        "seasoning_id": "sugar",
+        "required": false
+      },
+      {
+        "seasoning_id": "mirin",
+        "required": false
+      },
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "jp_shogayaki"
+  },
+  {
+    "id": "ws_ham_cheese_sandwich",
+    "name": "햄 치즈 샌드위치",
+    "cuisine": "양식",
+    "meal_type": "간단식",
+    "cooking_method": "조립하기",
+    "cook_time": 8,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "bread",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "ham",
+        "role": "must",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "sliced_cheese",
+        "role": "must",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "lettuce",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "tomato",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "mayonnaise",
+        "required": false
+      },
+      {
+        "seasoning_id": "mustard",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "ws_ham_cheese_sandwich"
+  },
+  {
+    "id": "ws_tomato_omelette",
+    "name": "토마토 오믈렛",
+    "cuisine": "양식",
+    "meal_type": "간단식",
+    "cooking_method": "부치기",
+    "cook_time": 15,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "egg",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "tomato",
+        "role": "must",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "mushroom",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "hard_cheese",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "butter",
+        "required": false
+      },
+      {
+        "seasoning_id": "salt",
+        "required": false
+      },
+      {
+        "seasoning_id": "pepper",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "ws_tomato_omelette"
+  },
+  {
+    "id": "ws_potato_cheese_bake",
+    "name": "감자 치즈구이",
+    "cuisine": "양식",
+    "meal_type": "볶음·구이",
+    "cooking_method": "굽기",
+    "cook_time": 30,
+    "tools": [
+      [
+        "에어프라이어",
+        "오븐"
+      ]
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "potato",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "mozzarella",
+        "role": "must",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "bacon",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "olive_oil",
+        "required": false
+      },
+      {
+        "seasoning_id": "salt",
+        "required": false
+      },
+      {
+        "seasoning_id": "pepper",
+        "required": false
+      },
+      {
+        "seasoning_id": "oregano",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "ws_potato_cheese_bake"
+  },
+  {
+    "id": "ws_cream_potato_soup",
+    "name": "크림 감자수프",
+    "cuisine": "양식",
+    "meal_type": "국·찌개",
+    "cooking_method": "끓이기",
+    "cook_time": 30,
+    "tools": [
+      "냄비"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "potato",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "must",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "cream",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "milk",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "bacon",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "butter",
+        "required": false
+      },
+      {
+        "seasoning_id": "chicken_stock",
+        "required": false
+      },
+      {
+        "seasoning_id": "salt",
+        "required": false
+      },
+      {
+        "seasoning_id": "pepper",
+        "required": false
+      }
+    ],
+    "min_core_count": 1,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "ws_cream_potato_soup"
+  },
+  {
+    "id": "kr_tteokbokki",
+    "name": "떡볶이",
+    "cuisine": "한식",
+    "meal_type": "간단식",
+    "cooking_method": "끓이기",
+    "cook_time": 20,
+    "tools": [
+      "냄비"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "rice_cake",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "fish_cake",
+        "role": "must",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "egg",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "gochujang",
+        "required": true
+      },
+      {
+        "seasoning_id": "sugar",
+        "required": true
+      },
+      {
+        "seasoning_id": "gochugaru",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_tteokbokki"
+  },
+  {
+    "id": "kr_fishcake_stirfry",
+    "name": "어묵볶음",
+    "cuisine": "한식",
+    "meal_type": "반찬",
+    "cooking_method": "볶기",
+    "cook_time": 15,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "fish_cake",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "cheongyang_chili",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "soy_sauce",
+        "required": true
+      },
+      {
+        "seasoning_id": "sugar",
+        "required": true
+      },
+      {
+        "seasoning_id": "sesame_oil",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_fishcake_stirfry"
+  },
+  {
+    "id": "kr_seaweed_soup",
+    "name": "소고기 미역국",
+    "cuisine": "한식",
+    "meal_type": "국·찌개",
+    "cooking_method": "끓이기",
+    "cook_time": 30,
+    "tools": [
+      "냄비"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "wakame",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "beef",
+        "role": "core",
+        "weight": 2
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "soup_soy",
+        "required": true
+      },
+      {
+        "seasoning_id": "sesame_oil",
+        "required": true
+      },
+      {
+        "seasoning_id": "minced_garlic",
+        "required": false
+      }
+    ],
+    "min_core_count": 1,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_seaweed_soup"
+  },
+  {
+    "id": "kr_steamed_egg",
+    "name": "계란찜",
+    "cuisine": "한식",
+    "meal_type": "반찬",
+    "cooking_method": "찌기",
+    "cook_time": 15,
+    "tools": [
+      [
+        "전자레인지",
+        "냄비"
+      ]
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "egg",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "salt",
+        "required": true
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_steamed_egg"
+  },
+  {
+    "id": "kr_banquet_noodle",
+    "name": "잔치국수",
+    "cuisine": "한식",
+    "meal_type": "면",
+    "cooking_method": "끓이기",
+    "cook_time": 15,
+    "tools": [
+      "냄비"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "thin_noodle",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "egg",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "zucchini",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "soup_soy",
+        "required": true
+      },
+      {
+        "seasoning_id": "bonito_stock",
+        "required": true
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_banquet_noodle"
+  },
+  {
+    "id": "kr_spicy_squid",
+    "name": "오징어볶음",
+    "cuisine": "한식",
+    "meal_type": "볶음·구이",
+    "cooking_method": "볶기",
+    "cook_time": 25,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "squid",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "carrot",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "cheongyang_chili",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "gochujang",
+        "required": true
+      },
+      {
+        "seasoning_id": "gochugaru",
+        "required": true
+      },
+      {
+        "seasoning_id": "sugar",
+        "required": true
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_spicy_squid"
+  },
+  {
+    "id": "kr_grilled_mackerel",
+    "name": "고등어구이",
+    "cuisine": "한식",
+    "meal_type": "볶음·구이",
+    "cooking_method": "굽기",
+    "cook_time": 20,
+    "tools": [
+      [
+        "프라이팬",
+        "에어프라이어"
+      ]
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "mackerel",
+        "role": "must",
+        "weight": 3
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "salt",
+        "required": true
+      },
+      {
+        "seasoning_id": "cooking_oil",
+        "required": true
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_grilled_mackerel"
+  },
+  {
+    "id": "kr_tuna_mayo_rice",
+    "name": "참치마요덮밥",
+    "cuisine": "한식",
+    "meal_type": "밥·덮밥",
+    "cooking_method": "조립하기",
+    "cook_time": 10,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "cooked_rice",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "canned_tuna",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "egg",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "nori",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "mayonnaise",
+        "required": true
+      },
+      {
+        "seasoning_id": "soy_sauce",
+        "required": true
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_tuna_mayo_rice"
+  },
+  {
+    "id": "kr_pan_fried_dumplings",
+    "name": "군만두",
+    "cuisine": "한식",
+    "meal_type": "간단식",
+    "cooking_method": "굽기",
+    "cook_time": 10,
+    "tools": [
+      [
+        "프라이팬",
+        "에어프라이어"
+      ]
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "dumpling",
+        "role": "must",
+        "weight": 3
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "cooking_oil",
+        "required": true
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_pan_fried_dumplings"
+  },
+  {
+    "id": "kr_dumpling_soup",
+    "name": "만둣국",
+    "cuisine": "한식",
+    "meal_type": "국·찌개",
+    "cooking_method": "끓이기",
+    "cook_time": 20,
+    "tools": [
+      "냄비"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "dumpling",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "egg",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "nori",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "soup_soy",
+        "required": true
+      },
+      {
+        "seasoning_id": "minced_garlic",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_dumpling_soup"
+  },
+  {
+    "id": "kr_cold_noodle",
+    "name": "초간단 물냉면",
+    "cuisine": "한식",
+    "meal_type": "면",
+    "cooking_method": "삶고 말기",
+    "cook_time": 5,
+    "tools": [
+      "냄비"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "naengmyeon_noodle",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "naengmyeon_broth",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "egg",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "cucumber",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "vinegar",
+        "required": false
+      },
+      {
+        "seasoning_id": "mustard",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_cold_noodle"
+  },
+  {
+    "id": "kr_instant_bibim_noodle",
+    "name": "초간단 비빔면",
+    "cuisine": "한식",
+    "meal_type": "면",
+    "cooking_method": "삶고 비비기",
+    "cook_time": 5,
+    "tools": [
+      "냄비"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "bibim_noodle_pack",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "egg",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "cucumber",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_instant_bibim_noodle"
+  },
+  {
+    "id": "kr_airfryer_cutlet",
+    "name": "에어프라이어 돈까스",
+    "cuisine": "한식",
+    "meal_type": "간단식",
+    "cooking_method": "에어프라이",
+    "cook_time": 20,
+    "tools": [
+      [
+        "에어프라이어",
+        "프라이팬"
+      ]
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "frozen_pork_cutlet",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "cabbage",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "ketchup",
+        "required": false
+      },
+      {
+        "seasoning_id": "mustard",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_airfryer_cutlet"
+  },
+  {
+    "id": "kr_radish_salad",
+    "name": "무생채",
+    "cuisine": "한식",
+    "meal_type": "반찬",
+    "cooking_method": "무치기",
+    "cook_time": 10,
+    "tools": [],
+    "ingredients": [
+      {
+        "ingredient_id": "radish",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "green_onion",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "gochugaru",
+        "required": true
+      },
+      {
+        "seasoning_id": "vinegar",
+        "required": true
+      },
+      {
+        "seasoning_id": "sugar",
+        "required": true
+      },
+      {
+        "seasoning_id": "salt",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_radish_salad"
+  },
+  {
+    "id": "kr_mackerel_radish_braise",
+    "name": "고등어 무조림",
+    "cuisine": "한식",
+    "meal_type": "국·찌개",
+    "cooking_method": "조리기",
+    "cook_time": 30,
+    "tools": [
+      "냄비"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "mackerel",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "radish",
+        "role": "must",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "cheongyang_chili",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "soy_sauce",
+        "required": true
+      },
+      {
+        "seasoning_id": "gochugaru",
+        "required": true
+      },
+      {
+        "seasoning_id": "sugar",
+        "required": false
+      },
+      {
+        "seasoning_id": "minced_garlic",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_mackerel_radish_braise"
+  },
+  {
+    "id": "lt_tuna_cabbage_salad",
+    "name": "참치 양배추 샐러드",
+    "cuisine": "양식",
+    "meal_type": "샐러드·가벼운 식사",
+    "cooking_method": "섞기",
+    "cook_time": 5,
+    "tools": [],
+    "ingredients": [
+      {
+        "ingredient_id": "canned_tuna",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "cabbage",
+        "role": "must",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "corn",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "tomato",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "mayonnaise",
+        "required": true
+      },
+      {
+        "seasoning_id": "pepper",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "lt_tuna_cabbage_salad"
+  },
+  {
+    "id": "lt_tofu_salad",
+    "name": "두부 채소 샐러드",
+    "cuisine": "한식",
+    "meal_type": "샐러드·가벼운 식사",
+    "cooking_method": "담기",
+    "cook_time": 5,
+    "tools": [],
+    "ingredients": [
+      {
+        "ingredient_id": "tofu",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "lettuce",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "cabbage",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "tomato",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "soy_sauce",
+        "required": true
+      },
+      {
+        "seasoning_id": "vinegar",
+        "required": true
+      },
+      {
+        "seasoning_id": "sesame_oil",
+        "required": false
+      }
+    ],
+    "min_core_count": 1,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "lt_tofu_salad"
+  },
+  {
+    "id": "lt_tomato_cheese_salad",
+    "name": "토마토 치즈 샐러드",
+    "cuisine": "양식",
+    "meal_type": "샐러드·가벼운 식사",
+    "cooking_method": "담기",
+    "cook_time": 5,
+    "tools": [],
+    "ingredients": [
+      {
+        "ingredient_id": "tomato",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "mozzarella",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "sliced_cheese",
+        "role": "core",
+        "weight": 2
+      },
+      {
+        "ingredient_id": "hard_cheese",
+        "role": "core",
+        "weight": 2
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "olive_oil",
+        "required": false
+      },
+      {
+        "seasoning_id": "salt",
+        "required": false
+      },
+      {
+        "seasoning_id": "pepper",
+        "required": false
+      }
+    ],
+    "min_core_count": 1,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "lt_tomato_cheese_salad"
+  },
+  {
+    "id": "lt_coleslaw",
+    "name": "초간단 코울슬로",
+    "cuisine": "양식",
+    "meal_type": "샐러드·가벼운 식사",
+    "cooking_method": "버무리기",
+    "cook_time": 5,
+    "tools": [],
+    "ingredients": [
+      {
+        "ingredient_id": "cabbage",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "carrot",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "corn",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "mayonnaise",
+        "required": true
+      },
+      {
+        "seasoning_id": "vinegar",
+        "required": true
+      },
+      {
+        "seasoning_id": "sugar",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "lt_coleslaw"
+  },
+  {
+    "id": "ws_salmon_lemon_steak",
+    "name": "레몬 연어 스테이크",
+    "cuisine": "양식",
+    "meal_type": "볶음·구이",
+    "cooking_method": "굽기",
+    "cook_time": 20,
+    "tools": [
+      [
+        "프라이팬",
+        "에어프라이어"
+      ]
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "salmon",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "lemon",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "broccoli",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "potato",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "salt",
+        "required": true
+      },
+      {
+        "seasoning_id": "pepper",
+        "required": false
+      },
+      {
+        "seasoning_id": "olive_oil",
+        "required": false
+      },
+      {
+        "seasoning_id": "butter",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "ws_salmon_lemon_steak"
+  },
+  {
+    "id": "lt_yogurt_cabbage_salad",
+    "name": "요거트 양배추 샐러드",
+    "cuisine": "양식",
+    "meal_type": "샐러드·가벼운 식사",
+    "cooking_method": "무치기",
+    "cook_time": 5,
+    "tools": [],
+    "ingredients": [
+      {
+        "ingredient_id": "yogurt",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "cabbage",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "lemon",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "carrot",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "corn",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "salt",
+        "required": false
+      },
+      {
+        "seasoning_id": "honey",
+        "required": false
+      },
+      {
+        "seasoning_id": "mayonnaise",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "lt_yogurt_cabbage_salad"
+  },
+  {
+    "id": "kr_spinach_namul",
+    "name": "시금치나물",
+    "cuisine": "한식",
+    "meal_type": "반찬",
+    "cooking_method": "데치기·무치기",
+    "cook_time": 10,
+    "tools": [
+      "냄비"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "spinach",
+        "role": "must",
+        "weight": 3
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "sesame_oil",
+        "required": true
+      },
+      {
+        "seasoning_id": "soy_sauce",
+        "required": false
+      },
+      {
+        "seasoning_id": "minced_garlic",
+        "required": false
+      },
+      {
+        "seasoning_id": "sesame_seed",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_spinach_namul"
+  },
+  {
+    "id": "kr_japchae",
+    "name": "잡채",
+    "cuisine": "한식",
+    "meal_type": "면",
+    "cooking_method": "볶기",
+    "cook_time": 30,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "glass_noodle",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "beef",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "spinach",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "carrot",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "onion",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "mushroom",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "soy_sauce",
+        "required": true
+      },
+      {
+        "seasoning_id": "sesame_oil",
+        "required": true
+      },
+      {
+        "seasoning_id": "sugar",
+        "required": false
+      },
+      {
+        "seasoning_id": "cooking_oil",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_japchae"
+  },
+  {
+    "id": "ws_avocado_egg_toast",
+    "name": "아보카도 에그 토스트",
+    "cuisine": "양식",
+    "meal_type": "샐러드·가벼운 식사",
+    "cooking_method": "굽기·조립",
+    "cook_time": 10,
+    "tools": [
+      "프라이팬"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "avocado",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "bread",
+        "role": "must",
+        "weight": 3
+      },
+      {
+        "ingredient_id": "egg",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "lemon",
+        "role": "supporting",
+        "weight": 1
+      },
+      {
+        "ingredient_id": "tomato",
+        "role": "supporting",
+        "weight": 1
+      }
+    ],
+    "seasonings": [
+      {
+        "seasoning_id": "salt",
+        "required": true
+      },
+      {
+        "seasoning_id": "pepper",
+        "required": false
+      },
+      {
+        "seasoning_id": "olive_oil",
+        "required": false
+      }
+    ],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "ws_avocado_egg_toast"
+  },
+  {
+    "id": "kr_quick_roasted_sweet_potato",
+    "name": "초간단 군고구마",
+    "cuisine": "한식",
+    "meal_type": "간단식",
+    "cooking_method": "굽기",
+    "cook_time": 20,
+    "tools": [
+      [
+        "에어프라이어",
+        "전자레인지",
+        "오븐"
+      ]
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "sweet_potato",
+        "role": "must",
+        "weight": 3
+      }
+    ],
+    "seasonings": [],
+    "min_core_count": 0,
+    "image_path": null,
+    "source": "curated_project_v5",
+    "source_recipe_id": "kr_quick_roasted_sweet_potato"
+  }
+]

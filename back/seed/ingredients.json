@@ -1,0 +1,1312 @@
+[
+  {
+    "id": "cooked_rice",
+    "name": "밥",
+    "aliases": [
+      "남은 밥",
+      "공깃밥"
+    ],
+    "category": "cooked_food",
+    "default_storage": "냉장",
+    "perishability_level": 4,
+    "opened_window_days": 3,
+    "condition_profile": "cooked_food",
+    "common_units": [
+      "공기",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 2
+  },
+  {
+    "id": "kimchi",
+    "name": "김치",
+    "aliases": [
+      "배추김치",
+      "익은 김치"
+    ],
+    "category": "fermented",
+    "default_storage": "냉장",
+    "perishability_level": 2,
+    "opened_window_days": 30,
+    "condition_profile": "fermented",
+    "common_units": [
+      "g",
+      "통",
+      "포기"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 30
+  },
+  {
+    "id": "egg",
+    "name": "달걀",
+    "aliases": [
+      "계란"
+    ],
+    "category": "egg",
+    "default_storage": "냉장",
+    "perishability_level": 3,
+    "opened_window_days": 1,
+    "condition_profile": "egg",
+    "common_units": [
+      "개",
+      "판"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 21
+  },
+  {
+    "id": "tofu",
+    "name": "두부",
+    "aliases": [
+      "부침두부",
+      "찌개두부"
+    ],
+    "category": "tofu",
+    "default_storage": "냉장",
+    "perishability_level": 5,
+    "opened_window_days": 2,
+    "condition_profile": "tofu",
+    "common_units": [
+      "모",
+      "팩",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 4
+  },
+  {
+    "id": "pork",
+    "name": "돼지고기",
+    "aliases": [
+      "삼겹살",
+      "목살",
+      "앞다리살"
+    ],
+    "category": "raw_meat",
+    "default_storage": "냉장",
+    "perishability_level": 5,
+    "opened_window_days": 2,
+    "condition_profile": "raw_meat",
+    "common_units": [
+      "g",
+      "kg",
+      "팩"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 3
+  },
+  {
+    "id": "beef",
+    "name": "소고기",
+    "aliases": [
+      "쇠고기",
+      "불고기용 소고기"
+    ],
+    "category": "raw_meat",
+    "default_storage": "냉장",
+    "perishability_level": 5,
+    "opened_window_days": 2,
+    "condition_profile": "raw_meat",
+    "common_units": [
+      "g",
+      "kg",
+      "팩"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 3
+  },
+  {
+    "id": "chicken",
+    "name": "닭고기",
+    "aliases": [
+      "닭가슴살",
+      "닭다리살",
+      "닭"
+    ],
+    "category": "raw_meat",
+    "default_storage": "냉장",
+    "perishability_level": 5,
+    "opened_window_days": 2,
+    "condition_profile": "raw_meat",
+    "common_units": [
+      "g",
+      "kg",
+      "팩"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 2
+  },
+  {
+    "id": "canned_tuna",
+    "name": "참치캔",
+    "aliases": [
+      "참치 통조림",
+      "참치"
+    ],
+    "category": "canned",
+    "default_storage": "실온",
+    "perishability_level": 2,
+    "opened_window_days": 2,
+    "condition_profile": "canned",
+    "common_units": [
+      "캔",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 90
+  },
+  {
+    "id": "shrimp",
+    "name": "새우",
+    "aliases": [
+      "칵테일새우",
+      "냉동새우"
+    ],
+    "category": "seafood",
+    "default_storage": "냉동",
+    "perishability_level": 5,
+    "opened_window_days": 2,
+    "condition_profile": "seafood",
+    "common_units": [
+      "마리",
+      "g",
+      "팩"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 2
+  },
+  {
+    "id": "mackerel",
+    "name": "고등어",
+    "aliases": [
+      "고등어살"
+    ],
+    "category": "seafood",
+    "default_storage": "냉장",
+    "perishability_level": 5,
+    "opened_window_days": 1,
+    "condition_profile": "seafood",
+    "common_units": [
+      "마리",
+      "토막",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 2
+  },
+  {
+    "id": "salmon",
+    "name": "연어",
+    "aliases": [
+      "연어살"
+    ],
+    "category": "seafood",
+    "default_storage": "냉장",
+    "perishability_level": 5,
+    "opened_window_days": 1,
+    "condition_profile": "seafood",
+    "common_units": [
+      "g",
+      "팩"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 2
+  },
+  {
+    "id": "squid",
+    "name": "오징어",
+    "aliases": [
+      "손질오징어"
+    ],
+    "category": "seafood",
+    "default_storage": "냉장",
+    "perishability_level": 5,
+    "opened_window_days": 1,
+    "condition_profile": "seafood",
+    "common_units": [
+      "마리",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 2
+  },
+  {
+    "id": "milk",
+    "name": "우유",
+    "aliases": [
+      "흰우유"
+    ],
+    "category": "dairy",
+    "default_storage": "냉장",
+    "perishability_level": 4,
+    "opened_window_days": 5,
+    "condition_profile": "dairy",
+    "common_units": [
+      "mL",
+      "L",
+      "팩"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 7
+  },
+  {
+    "id": "yogurt",
+    "name": "요거트",
+    "aliases": [
+      "요구르트",
+      "그릭요거트"
+    ],
+    "category": "dairy",
+    "default_storage": "냉장",
+    "perishability_level": 3,
+    "opened_window_days": 5,
+    "condition_profile": "dairy",
+    "common_units": [
+      "개",
+      "g",
+      "통"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 10
+  },
+  {
+    "id": "hard_cheese",
+    "name": "경성치즈",
+    "aliases": [
+      "체다치즈",
+      "고다치즈"
+    ],
+    "category": "cheese",
+    "default_storage": "냉장",
+    "perishability_level": 2,
+    "opened_window_days": 14,
+    "condition_profile": "cheese_hard",
+    "common_units": [
+      "장",
+      "g",
+      "팩"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 21
+  },
+  {
+    "id": "onion",
+    "name": "양파",
+    "aliases": [
+      "양파 반개"
+    ],
+    "category": "root_vegetable",
+    "default_storage": "실온",
+    "perishability_level": 2,
+    "opened_window_days": 5,
+    "condition_profile": "vegetable_root",
+    "common_units": [
+      "개",
+      "망",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 21
+  },
+  {
+    "id": "green_onion",
+    "name": "대파",
+    "aliases": [
+      "파",
+      "쪽파"
+    ],
+    "category": "leafy_vegetable",
+    "default_storage": "냉장",
+    "perishability_level": 4,
+    "opened_window_days": 5,
+    "condition_profile": "vegetable_leafy",
+    "common_units": [
+      "단",
+      "대",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 5
+  },
+  {
+    "id": "garlic",
+    "name": "마늘",
+    "aliases": [
+      "통마늘",
+      "깐마늘"
+    ],
+    "category": "root_vegetable",
+    "default_storage": "냉장",
+    "perishability_level": 2,
+    "opened_window_days": 10,
+    "condition_profile": "vegetable_root",
+    "common_units": [
+      "쪽",
+      "통",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 30
+  },
+  {
+    "id": "potato",
+    "name": "감자",
+    "aliases": [
+      "감자알"
+    ],
+    "category": "root_vegetable",
+    "default_storage": "실온",
+    "perishability_level": 2,
+    "opened_window_days": 5,
+    "condition_profile": "vegetable_root",
+    "common_units": [
+      "개",
+      "봉",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 21
+  },
+  {
+    "id": "carrot",
+    "name": "당근",
+    "aliases": [
+      "당근 반개"
+    ],
+    "category": "root_vegetable",
+    "default_storage": "냉장",
+    "perishability_level": 2,
+    "opened_window_days": 7,
+    "condition_profile": "vegetable_root",
+    "common_units": [
+      "개",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 14
+  },
+  {
+    "id": "zucchini",
+    "name": "애호박",
+    "aliases": [
+      "주키니"
+    ],
+    "category": "vegetable",
+    "default_storage": "냉장",
+    "perishability_level": 4,
+    "opened_window_days": 4,
+    "condition_profile": "vegetable_general",
+    "common_units": [
+      "개",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 5
+  },
+  {
+    "id": "mushroom",
+    "name": "버섯",
+    "aliases": [
+      "새송이버섯",
+      "느타리버섯",
+      "표고버섯",
+      "양송이버섯"
+    ],
+    "category": "vegetable",
+    "default_storage": "냉장",
+    "perishability_level": 4,
+    "opened_window_days": 4,
+    "condition_profile": "vegetable_general",
+    "common_units": [
+      "팩",
+      "개",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 4
+  },
+  {
+    "id": "cabbage",
+    "name": "양배추",
+    "aliases": [
+      "양배추 반통"
+    ],
+    "category": "leafy_vegetable",
+    "default_storage": "냉장",
+    "perishability_level": 3,
+    "opened_window_days": 7,
+    "condition_profile": "vegetable_leafy",
+    "common_units": [
+      "통",
+      "장",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 7
+  },
+  {
+    "id": "lettuce",
+    "name": "상추",
+    "aliases": [
+      "쌈채소"
+    ],
+    "category": "leafy_vegetable",
+    "default_storage": "냉장",
+    "perishability_level": 5,
+    "opened_window_days": 3,
+    "condition_profile": "vegetable_leafy",
+    "common_units": [
+      "봉",
+      "장",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 3
+  },
+  {
+    "id": "spinach",
+    "name": "시금치",
+    "aliases": [
+      "시금치 한 단"
+    ],
+    "category": "leafy_vegetable",
+    "default_storage": "냉장",
+    "perishability_level": 5,
+    "opened_window_days": 3,
+    "condition_profile": "vegetable_leafy",
+    "common_units": [
+      "단",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 3
+  },
+  {
+    "id": "bean_sprouts",
+    "name": "콩나물",
+    "aliases": [],
+    "category": "leafy_vegetable",
+    "default_storage": "냉장",
+    "perishability_level": 5,
+    "opened_window_days": 3,
+    "condition_profile": "vegetable_leafy",
+    "common_units": [
+      "봉",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 3
+  },
+  {
+    "id": "tomato",
+    "name": "토마토",
+    "aliases": [
+      "방울토마토"
+    ],
+    "category": "fruit_vegetable",
+    "default_storage": "냉장",
+    "perishability_level": 3,
+    "opened_window_days": 4,
+    "condition_profile": "fruit_vegetable",
+    "common_units": [
+      "개",
+      "팩",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 5
+  },
+  {
+    "id": "bell_pepper",
+    "name": "피망",
+    "aliases": [
+      "파프리카"
+    ],
+    "category": "fruit_vegetable",
+    "default_storage": "냉장",
+    "perishability_level": 3,
+    "opened_window_days": 4,
+    "condition_profile": "fruit_vegetable",
+    "common_units": [
+      "개",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 7
+  },
+  {
+    "id": "eggplant",
+    "name": "가지",
+    "aliases": [
+      "가지 반개"
+    ],
+    "category": "vegetable",
+    "default_storage": "냉장",
+    "perishability_level": 4,
+    "opened_window_days": 4,
+    "condition_profile": "vegetable_general",
+    "common_units": [
+      "개",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 5
+  },
+  {
+    "id": "broccoli",
+    "name": "브로콜리",
+    "aliases": [
+      "브로콜리 송이"
+    ],
+    "category": "vegetable",
+    "default_storage": "냉장",
+    "perishability_level": 4,
+    "opened_window_days": 4,
+    "condition_profile": "vegetable_general",
+    "common_units": [
+      "송이",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 5
+  },
+  {
+    "id": "bok_choy",
+    "name": "청경채",
+    "aliases": [
+      "청경채 한 봉"
+    ],
+    "category": "leafy_vegetable",
+    "default_storage": "냉장",
+    "perishability_level": 5,
+    "opened_window_days": 3,
+    "condition_profile": "vegetable_leafy",
+    "common_units": [
+      "포기",
+      "봉",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 3
+  },
+  {
+    "id": "bread",
+    "name": "식빵",
+    "aliases": [
+      "빵",
+      "토스트용 식빵"
+    ],
+    "category": "bread",
+    "default_storage": "실온",
+    "perishability_level": 3,
+    "opened_window_days": 4,
+    "condition_profile": "bread",
+    "common_units": [
+      "장",
+      "봉",
+      "개"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 5
+  },
+  {
+    "id": "thin_noodle",
+    "name": "소면",
+    "aliases": [
+      "국수면",
+      "중면"
+    ],
+    "category": "dry_noodle",
+    "default_storage": "실온",
+    "perishability_level": 1,
+    "opened_window_days": 90,
+    "condition_profile": "dry_food",
+    "common_units": [
+      "인분",
+      "g",
+      "봉"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 60
+  },
+  {
+    "id": "udon_noodle",
+    "name": "우동면",
+    "aliases": [
+      "생우동면",
+      "냉동우동면"
+    ],
+    "category": "noodle",
+    "default_storage": "냉장",
+    "perishability_level": 3,
+    "opened_window_days": 3,
+    "condition_profile": "processed_food",
+    "common_units": [
+      "봉",
+      "인분",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 10
+  },
+  {
+    "id": "pasta",
+    "name": "파스타면",
+    "aliases": [
+      "스파게티면"
+    ],
+    "category": "dry_noodle",
+    "default_storage": "실온",
+    "perishability_level": 1,
+    "opened_window_days": 90,
+    "condition_profile": "dry_food",
+    "common_units": [
+      "인분",
+      "g",
+      "봉"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 60
+  },
+  {
+    "id": "tortilla",
+    "name": "또띠아",
+    "aliases": [
+      "토르티야"
+    ],
+    "category": "bread",
+    "default_storage": "냉장",
+    "perishability_level": 3,
+    "opened_window_days": 5,
+    "condition_profile": "bread",
+    "common_units": [
+      "장",
+      "봉"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 10
+  },
+  {
+    "id": "rice_cake",
+    "name": "떡",
+    "aliases": [
+      "떡볶이떡",
+      "가래떡"
+    ],
+    "category": "processed_food",
+    "default_storage": "냉장",
+    "perishability_level": 4,
+    "opened_window_days": 3,
+    "condition_profile": "processed_food",
+    "common_units": [
+      "g",
+      "봉",
+      "줄"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 14
+  },
+  {
+    "id": "sausage",
+    "name": "소시지",
+    "aliases": [
+      "비엔나소시지"
+    ],
+    "category": "processed_meat",
+    "default_storage": "냉장",
+    "perishability_level": 4,
+    "opened_window_days": 4,
+    "condition_profile": "processed_meat",
+    "common_units": [
+      "개",
+      "팩",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 7
+  },
+  {
+    "id": "tomato_sauce",
+    "name": "토마토소스",
+    "aliases": [
+      "파스타소스",
+      "피자소스"
+    ],
+    "category": "processed_food",
+    "default_storage": "냉장",
+    "perishability_level": 3,
+    "opened_window_days": 7,
+    "condition_profile": "processed_food",
+    "common_units": [
+      "g",
+      "병",
+      "팩"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 7
+  },
+  {
+    "id": "canned_tomato",
+    "name": "홀토마토·토마토캔",
+    "aliases": [
+      "홀토마토",
+      "토마토캔"
+    ],
+    "category": "canned",
+    "default_storage": "실온",
+    "perishability_level": 2,
+    "opened_window_days": 5,
+    "condition_profile": "canned",
+    "common_units": [
+      "g",
+      "캔"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 7
+  },
+  {
+    "id": "cream",
+    "name": "생크림",
+    "aliases": [
+      "휘핑크림",
+      "쿠킹크림"
+    ],
+    "category": "dairy",
+    "default_storage": "냉장",
+    "perishability_level": 5,
+    "opened_window_days": 4,
+    "condition_profile": "dairy",
+    "common_units": [
+      "mL",
+      "팩"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 5
+  },
+  {
+    "id": "mozzarella",
+    "name": "모차렐라치즈",
+    "aliases": [
+      "피자치즈",
+      "모짜렐라"
+    ],
+    "category": "dairy",
+    "default_storage": "냉장",
+    "perishability_level": 4,
+    "opened_window_days": 5,
+    "condition_profile": "cheese_soft",
+    "common_units": [
+      "g",
+      "봉"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 7
+  },
+  {
+    "id": "parmesan",
+    "name": "파르메산치즈",
+    "aliases": [
+      "파마산치즈",
+      "파마산"
+    ],
+    "category": "dairy",
+    "default_storage": "냉장",
+    "perishability_level": 2,
+    "opened_window_days": 21,
+    "condition_profile": "cheese_hard",
+    "common_units": [
+      "g",
+      "통"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 30
+  },
+  {
+    "id": "sliced_cheese",
+    "name": "슬라이스치즈",
+    "aliases": [
+      "체다 슬라이스",
+      "가공치즈"
+    ],
+    "category": "processed_food",
+    "default_storage": "냉장",
+    "perishability_level": 3,
+    "opened_window_days": 10,
+    "condition_profile": "cheese_soft",
+    "common_units": [
+      "장",
+      "팩"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 21
+  },
+  {
+    "id": "bacon",
+    "name": "베이컨",
+    "aliases": [],
+    "category": "processed_meat",
+    "default_storage": "냉장",
+    "perishability_level": 4,
+    "opened_window_days": 5,
+    "condition_profile": "processed_meat",
+    "common_units": [
+      "g",
+      "팩"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 7
+  },
+  {
+    "id": "ham",
+    "name": "햄",
+    "aliases": [
+      "샌드위치햄",
+      "통조림햄"
+    ],
+    "category": "processed_meat",
+    "default_storage": "냉장",
+    "perishability_level": 4,
+    "opened_window_days": 5,
+    "condition_profile": "processed_meat",
+    "common_units": [
+      "g",
+      "팩",
+      "캔"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 7
+  },
+  {
+    "id": "ground_meat",
+    "name": "다짐육",
+    "aliases": [
+      "간고기",
+      "민스"
+    ],
+    "category": "raw_meat",
+    "default_storage": "냉장",
+    "perishability_level": 5,
+    "opened_window_days": 2,
+    "condition_profile": "raw_meat",
+    "common_units": [
+      "g",
+      "팩"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 2
+  },
+  {
+    "id": "flour",
+    "name": "밀가루",
+    "aliases": [
+      "중력분",
+      "박력분"
+    ],
+    "category": "dry_food",
+    "default_storage": "실온",
+    "perishability_level": 1,
+    "opened_window_days": 90,
+    "condition_profile": "dry_food",
+    "common_units": [
+      "g",
+      "kg",
+      "봉"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 60
+  },
+  {
+    "id": "corn",
+    "name": "옥수수",
+    "aliases": [
+      "캔옥수수",
+      "스위트콘"
+    ],
+    "category": "processed_food",
+    "default_storage": "실온",
+    "perishability_level": 2,
+    "opened_window_days": 5,
+    "condition_profile": "canned",
+    "common_units": [
+      "g",
+      "캔"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 7
+  },
+  {
+    "id": "lemon",
+    "name": "레몬",
+    "aliases": [],
+    "category": "fruit_vegetable",
+    "default_storage": "냉장",
+    "perishability_level": 2,
+    "opened_window_days": 14,
+    "condition_profile": "fruit_vegetable",
+    "common_units": [
+      "개",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 14
+  },
+  {
+    "id": "avocado",
+    "name": "아보카도",
+    "aliases": [],
+    "category": "fruit_vegetable",
+    "default_storage": "실온",
+    "perishability_level": 4,
+    "opened_window_days": 3,
+    "condition_profile": "fruit_vegetable",
+    "common_units": [
+      "개",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 4
+  },
+  {
+    "id": "nori",
+    "name": "김",
+    "aliases": [
+      "구운김",
+      "조미김"
+    ],
+    "category": "dry_food",
+    "default_storage": "실온",
+    "perishability_level": 1,
+    "opened_window_days": 30,
+    "condition_profile": "dry_food",
+    "common_units": [
+      "장",
+      "봉"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 60
+  },
+  {
+    "id": "wakame",
+    "name": "미역",
+    "aliases": [
+      "건미역"
+    ],
+    "category": "dry_food",
+    "default_storage": "실온",
+    "perishability_level": 1,
+    "opened_window_days": 90,
+    "condition_profile": "dry_food",
+    "common_units": [
+      "g",
+      "봉"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 60
+  },
+  {
+    "id": "fish_cake",
+    "name": "어묵",
+    "aliases": [
+      "오뎅"
+    ],
+    "category": "processed_food",
+    "default_storage": "냉장",
+    "perishability_level": 4,
+    "opened_window_days": 4,
+    "condition_profile": "processed_food",
+    "common_units": [
+      "g",
+      "봉"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 5
+  },
+  {
+    "id": "soba_noodle",
+    "name": "소바면",
+    "aliases": [
+      "메밀면"
+    ],
+    "category": "dry_food",
+    "default_storage": "실온",
+    "perishability_level": 1,
+    "opened_window_days": 90,
+    "condition_profile": "dry_food",
+    "common_units": [
+      "g",
+      "인분",
+      "봉"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 60
+  },
+  {
+    "id": "ramen_noodle",
+    "name": "라면사리",
+    "aliases": [
+      "라면",
+      "중화면 사리"
+    ],
+    "category": "dry_food",
+    "default_storage": "실온",
+    "perishability_level": 1,
+    "opened_window_days": 90,
+    "condition_profile": "dry_food",
+    "common_units": [
+      "개",
+      "봉"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 60
+  },
+  {
+    "id": "chinese_noodle",
+    "name": "중화면",
+    "aliases": [
+      "생중화면"
+    ],
+    "category": "dry_food",
+    "default_storage": "냉장",
+    "perishability_level": 3,
+    "opened_window_days": 5,
+    "condition_profile": "dry_food",
+    "common_units": [
+      "g",
+      "인분",
+      "봉"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 60
+  },
+  {
+    "id": "glass_noodle",
+    "name": "당면",
+    "aliases": [],
+    "category": "dry_food",
+    "default_storage": "실온",
+    "perishability_level": 1,
+    "opened_window_days": 90,
+    "condition_profile": "dry_food",
+    "common_units": [
+      "g",
+      "봉"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 60
+  },
+  {
+    "id": "mung_bean_sprouts",
+    "name": "숙주",
+    "aliases": [
+      "숙주나물"
+    ],
+    "category": "vegetable_leafy",
+    "default_storage": "냉장",
+    "perishability_level": 5,
+    "opened_window_days": 2,
+    "condition_profile": "vegetable_leafy",
+    "common_units": [
+      "g",
+      "봉"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 3
+  },
+  {
+    "id": "cucumber",
+    "name": "오이",
+    "aliases": [],
+    "category": "vegetable_general",
+    "default_storage": "냉장",
+    "perishability_level": 3,
+    "opened_window_days": 5,
+    "condition_profile": "vegetable_general",
+    "common_units": [
+      "개",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 5
+  },
+  {
+    "id": "sweet_potato",
+    "name": "고구마",
+    "aliases": [],
+    "category": "vegetable_root",
+    "default_storage": "실온",
+    "perishability_level": 2,
+    "opened_window_days": 14,
+    "condition_profile": "vegetable_root",
+    "common_units": [
+      "개",
+      "g",
+      "kg"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 21
+  },
+  {
+    "id": "dumpling",
+    "name": "만두",
+    "aliases": [
+      "냉동만두",
+      "고기만두",
+      "김치만두"
+    ],
+    "category": "frozen_food",
+    "default_storage": "냉동",
+    "perishability_level": 1,
+    "opened_window_days": 60,
+    "condition_profile": "processed_food",
+    "common_units": [
+      "개",
+      "봉",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 60
+  },
+  {
+    "id": "radish",
+    "name": "무",
+    "aliases": [
+      "무우",
+      "조선무"
+    ],
+    "category": "root_vegetable",
+    "default_storage": "냉장",
+    "perishability_level": 3,
+    "opened_window_days": 10,
+    "condition_profile": "vegetable_root",
+    "common_units": [
+      "개",
+      "토막",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 14
+  },
+  {
+    "id": "cheongyang_chili",
+    "name": "청양고추",
+    "aliases": [
+      "매운고추",
+      "청양 고추"
+    ],
+    "category": "fruit_vegetable",
+    "default_storage": "냉장",
+    "perishability_level": 3,
+    "opened_window_days": 7,
+    "condition_profile": "vegetable_general",
+    "common_units": [
+      "개",
+      "봉",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 7
+  },
+  {
+    "id": "soft_tofu",
+    "name": "순두부",
+    "aliases": [
+      "연두부",
+      "찌개용 순두부"
+    ],
+    "category": "tofu",
+    "default_storage": "냉장",
+    "perishability_level": 5,
+    "opened_window_days": 1,
+    "condition_profile": "tofu",
+    "common_units": [
+      "봉",
+      "팩",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 3
+  },
+  {
+    "id": "naengmyeon_broth",
+    "name": "냉면육수",
+    "aliases": [
+      "동치미육수",
+      "냉면 육수"
+    ],
+    "category": "processed_food",
+    "default_storage": "냉장",
+    "perishability_level": 3,
+    "opened_window_days": 2,
+    "condition_profile": "processed_food",
+    "common_units": [
+      "봉",
+      "팩",
+      "mL"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 20
+  },
+  {
+    "id": "naengmyeon_noodle",
+    "name": "냉면면",
+    "aliases": [
+      "냉면사리",
+      "냉면 면"
+    ],
+    "category": "noodle",
+    "default_storage": "냉장",
+    "perishability_level": 2,
+    "opened_window_days": 5,
+    "condition_profile": "processed_food",
+    "common_units": [
+      "인분",
+      "봉",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 10
+  },
+  {
+    "id": "frozen_pork_cutlet",
+    "name": "냉동 돈까스",
+    "aliases": [
+      "냉동돈가스",
+      "돈까스",
+      "돈가스"
+    ],
+    "category": "frozen_food",
+    "default_storage": "냉동",
+    "perishability_level": 1,
+    "opened_window_days": 60,
+    "condition_profile": "processed_food",
+    "common_units": [
+      "장",
+      "봉",
+      "g"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 60
+  },
+  {
+    "id": "bibim_noodle_pack",
+    "name": "비빔면",
+    "aliases": [
+      "비빔라면",
+      "비빔면 봉지라면"
+    ],
+    "category": "dry_noodle",
+    "default_storage": "실온",
+    "perishability_level": 1,
+    "opened_window_days": 90,
+    "condition_profile": "dry_food",
+    "common_units": [
+      "봉",
+      "개",
+      "인분"
+    ],
+    "source_ids": [],
+    "freshness_window_days": 60
+  }
+]

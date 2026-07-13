@@ -1,0 +1,360 @@
+{
+  "ingredients": {
+    "hard_cheese": [
+      {
+        "id": "mozzarella",
+        "quality": 0.9,
+        "tier": "equivalent"
+      },
+      {
+        "id": "parmesan",
+        "quality": 0.9,
+        "tier": "equivalent"
+      },
+      {
+        "id": "sliced_cheese",
+        "quality": 0.8,
+        "tier": "equivalent"
+      }
+    ],
+    "mozzarella": [
+      {
+        "id": "hard_cheese",
+        "quality": 0.85,
+        "tier": "equivalent"
+      },
+      {
+        "id": "sliced_cheese",
+        "quality": 0.8,
+        "tier": "equivalent"
+      }
+    ],
+    "parmesan": [
+      {
+        "id": "hard_cheese",
+        "quality": 0.85,
+        "tier": "equivalent"
+      }
+    ],
+    "cream": [
+      {
+        "id": "milk",
+        "quality": 0.75,
+        "tier": "rough",
+        "warning": "원래 레시피와 식감이나 맛이 달라질 수 있습니다."
+      }
+    ],
+    "milk": [
+      {
+        "id": "cream",
+        "quality": 0.9,
+        "tier": "equivalent"
+      }
+    ],
+    "tomato_sauce": [
+      {
+        "id": "canned_tomato",
+        "quality": 0.9,
+        "tier": "equivalent"
+      },
+      {
+        "id": "tomato",
+        "quality": 0.7,
+        "tier": "equivalent",
+        "excluded_meal_types": [
+          "샐러드·가벼운 식사"
+        ],
+        "warning": "가열 조리용 대체입니다."
+      }
+    ],
+    "canned_tomato": [
+      {
+        "id": "tomato_sauce",
+        "quality": 0.95,
+        "tier": "equivalent"
+      },
+      {
+        "id": "tomato",
+        "quality": 0.75,
+        "tier": "equivalent",
+        "excluded_meal_types": [
+          "샐러드·가벼운 식사"
+        ],
+        "warning": "가열 조리용 대체입니다."
+      }
+    ],
+    "tomato": [
+      {
+        "id": "canned_tomato",
+        "quality": 0.8,
+        "tier": "equivalent",
+        "allowed_cooking_methods": [
+          "끓이기",
+          "볶기",
+          "굽기",
+          "오븐",
+          "조리기"
+        ],
+        "excluded_meal_types": [
+          "샐러드·가벼운 식사"
+        ],
+        "warning": "생토마토 대신 가공 토마토를 쓰므로 샐러드에는 적용하지 않습니다."
+      },
+      {
+        "id": "tomato_sauce",
+        "quality": 0.75,
+        "tier": "equivalent",
+        "allowed_cooking_methods": [
+          "끓이기",
+          "볶기",
+          "굽기",
+          "오븐",
+          "조리기"
+        ],
+        "excluded_meal_types": [
+          "샐러드·가벼운 식사"
+        ],
+        "warning": "생토마토 대신 가공 토마토를 쓰므로 샐러드에는 적용하지 않습니다."
+      }
+    ],
+    "bacon": [
+      {
+        "id": "ham",
+        "quality": 0.85,
+        "tier": "equivalent"
+      },
+      {
+        "id": "sausage",
+        "quality": 0.75,
+        "tier": "equivalent"
+      }
+    ],
+    "ham": [
+      {
+        "id": "bacon",
+        "quality": 0.85,
+        "tier": "equivalent"
+      },
+      {
+        "id": "sausage",
+        "quality": 0.8,
+        "tier": "equivalent"
+      }
+    ],
+    "sausage": [
+      {
+        "id": "ham",
+        "quality": 0.85,
+        "tier": "equivalent"
+      },
+      {
+        "id": "bacon",
+        "quality": 0.8,
+        "tier": "equivalent"
+      }
+    ],
+    "ground_meat": [
+      {
+        "id": "pork",
+        "quality": 0.8,
+        "tier": "equivalent"
+      },
+      {
+        "id": "beef",
+        "quality": 0.8,
+        "tier": "equivalent"
+      }
+    ],
+    "pork": [
+      {
+        "id": "ground_meat",
+        "quality": 0.85,
+        "tier": "equivalent"
+      }
+    ],
+    "beef": [
+      {
+        "id": "ground_meat",
+        "quality": 0.85,
+        "tier": "equivalent"
+      }
+    ],
+    "bean_sprouts": [
+      {
+        "id": "mung_bean_sprouts",
+        "quality": 0.8,
+        "tier": "equivalent"
+      }
+    ],
+    "mung_bean_sprouts": [
+      {
+        "id": "bean_sprouts",
+        "quality": 0.8,
+        "tier": "equivalent"
+      }
+    ],
+    "chinese_noodle": [
+      {
+        "id": "ramen_noodle",
+        "quality": 0.85,
+        "tier": "equivalent"
+      },
+      {
+        "id": "thin_noodle",
+        "quality": 0.65,
+        "tier": "rough",
+        "warning": "원래 레시피와 식감이나 맛이 달라질 수 있습니다."
+      }
+    ],
+    "ramen_noodle": [
+      {
+        "id": "chinese_noodle",
+        "quality": 0.9,
+        "tier": "equivalent"
+      }
+    ],
+    "soba_noodle": [
+      {
+        "id": "thin_noodle",
+        "quality": 0.65,
+        "tier": "rough",
+        "warning": "원래 레시피와 식감이나 맛이 달라질 수 있습니다."
+      }
+    ],
+    "bread": [
+      {
+        "id": "tortilla",
+        "quality": 0.65,
+        "tier": "rough",
+        "warning": "원래 레시피와 식감이나 맛이 달라질 수 있습니다."
+      }
+    ],
+    "soft_tofu": [
+      {
+        "id": "tofu",
+        "quality": 0.72,
+        "tier": "rough",
+        "warning": "원래 레시피와 식감이나 맛이 달라질 수 있습니다."
+      }
+    ],
+    "tofu": [
+      {
+        "id": "soft_tofu",
+        "quality": 0.68,
+        "tier": "rough",
+        "warning": "원래 레시피와 식감이나 맛이 달라질 수 있습니다."
+      }
+    ],
+    "naengmyeon_noodle": [
+      {
+        "id": "soba_noodle",
+        "quality": 0.55,
+        "tier": "rough",
+        "warning": "원래 레시피와 식감이나 맛이 달라질 수 있습니다."
+      }
+    ],
+    "thin_noodle": [
+      {
+        "id": "naengmyeon_noodle",
+        "quality": 0.5,
+        "tier": "rough",
+        "warning": "원래 레시피와 식감이나 맛이 달라질 수 있습니다."
+      }
+    ]
+  },
+  "seasonings": {
+    "olive_oil": [
+      {
+        "id": "cooking_oil",
+        "quality": 0.85,
+        "tier": "equivalent"
+      }
+    ],
+    "butter": [
+      {
+        "id": "cooking_oil",
+        "quality": 0.7,
+        "tier": "rough",
+        "warning": "간이 대체로 조리는 가능하지만 원래 맛과 다를 수 있습니다."
+      },
+      {
+        "id": "olive_oil",
+        "quality": 0.8,
+        "tier": "rough",
+        "warning": "간이 대체로 조리는 가능하지만 원래 맛과 다를 수 있습니다."
+      }
+    ],
+    "soup_soy": [
+      {
+        "id": "soy_sauce",
+        "quality": 0.85,
+        "tier": "equivalent"
+      },
+      {
+        "id": "bonito_stock",
+        "quality": 0.8,
+        "tier": "equivalent"
+      }
+    ],
+    "mirin": [
+      {
+        "id": "sugar",
+        "quality": 0.65,
+        "tier": "rough",
+        "warning": "설탕은 단맛만 보완하며 맛술의 잡내 제거 기능을 대신하지 못합니다."
+      }
+    ],
+    "oyster_sauce": [
+      {
+        "id": "soy_sauce",
+        "quality": 0.65,
+        "tier": "rough",
+        "warning": "간이 대체로 조리는 가능하지만 원래 맛과 다를 수 있습니다."
+      }
+    ],
+    "pancake_mix": [
+      {
+        "id": "starch",
+        "quality": 0.6,
+        "tier": "rough",
+        "warning": "전분만으로는 부침가루와 같은 반죽이 되지 않습니다."
+      }
+    ],
+    "bonito_stock": [
+      {
+        "id": "soup_soy",
+        "quality": 0.75,
+        "tier": "rough",
+        "warning": "간이 대체로 조리는 가능하지만 원래 맛과 다를 수 있습니다."
+      },
+      {
+        "id": "soy_sauce",
+        "quality": 0.6,
+        "tier": "rough",
+        "warning": "간이 대체로 조리는 가능하지만 원래 맛과 다를 수 있습니다."
+      }
+    ],
+    "chicken_stock": [
+      {
+        "id": "salt",
+        "quality": 0.5,
+        "tier": "rough",
+        "warning": "소금은 간만 보완하며 치킨스톡의 풍미를 대신하지 못합니다."
+      }
+    ],
+    "worcestershire": [
+      {
+        "id": "ketchup",
+        "quality": 0.6,
+        "tier": "rough",
+        "warning": "간이 대체로 조리는 가능하지만 원래 맛과 다를 수 있습니다."
+      },
+      {
+        "id": "soy_sauce",
+        "quality": 0.5,
+        "tier": "rough",
+        "warning": "간이 대체로 조리는 가능하지만 원래 맛과 다를 수 있습니다."
+      }
+    ]
+  }
+}

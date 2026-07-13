@@ -1,0 +1,162 @@
+[
+  {
+    "id": "salt",
+    "name": "소금",
+    "default_owned": true
+  },
+  {
+    "id": "sugar",
+    "name": "설탕",
+    "default_owned": true
+  },
+  {
+    "id": "pepper",
+    "name": "후추",
+    "default_owned": true
+  },
+  {
+    "id": "cooking_oil",
+    "name": "식용유",
+    "default_owned": true
+  },
+  {
+    "id": "sesame_oil",
+    "name": "참기름",
+    "default_owned": false
+  },
+  {
+    "id": "soy_sauce",
+    "name": "진간장",
+    "default_owned": true
+  },
+  {
+    "id": "soup_soy",
+    "name": "국간장",
+    "default_owned": false
+  },
+  {
+    "id": "gochujang",
+    "name": "고추장",
+    "default_owned": false
+  },
+  {
+    "id": "doenjang",
+    "name": "된장",
+    "default_owned": false
+  },
+  {
+    "id": "gochugaru",
+    "name": "고춧가루",
+    "default_owned": false
+  },
+  {
+    "id": "vinegar",
+    "name": "식초",
+    "default_owned": true
+  },
+  {
+    "id": "mirin",
+    "name": "맛술",
+    "default_owned": false
+  },
+  {
+    "id": "oyster_sauce",
+    "name": "굴소스",
+    "default_owned": false
+  },
+  {
+    "id": "ketchup",
+    "name": "케첩",
+    "default_owned": true
+  },
+  {
+    "id": "minced_garlic",
+    "name": "다진 마늘",
+    "default_owned": true
+  },
+  {
+    "id": "pancake_mix",
+    "name": "부침가루",
+    "default_owned": false
+  },
+  {
+    "id": "starch",
+    "name": "전분",
+    "default_owned": false
+  },
+  {
+    "id": "butter",
+    "name": "버터",
+    "default_owned": false
+  },
+  {
+    "id": "chunjang",
+    "name": "춘장",
+    "default_owned": false
+  },
+  {
+    "id": "doubanjiang",
+    "name": "두반장",
+    "default_owned": false
+  },
+  {
+    "id": "olive_oil",
+    "name": "올리브유",
+    "default_owned": false
+  },
+  {
+    "id": "mayonnaise",
+    "name": "마요네즈",
+    "default_owned": false
+  },
+  {
+    "id": "curry_powder",
+    "name": "카레가루·카레블록",
+    "default_owned": false
+  },
+  {
+    "id": "mustard",
+    "name": "머스터드",
+    "default_owned": false
+  },
+  {
+    "id": "honey",
+    "name": "꿀",
+    "default_owned": false
+  },
+  {
+    "id": "chicken_stock",
+    "name": "치킨스톡",
+    "default_owned": false
+  },
+  {
+    "id": "chili_oil",
+    "name": "고추기름",
+    "default_owned": false
+  },
+  {
+    "id": "worcestershire",
+    "name": "우스터소스",
+    "default_owned": false
+  },
+  {
+    "id": "basil",
+    "name": "바질",
+    "default_owned": false
+  },
+  {
+    "id": "oregano",
+    "name": "오레가노",
+    "default_owned": false
+  },
+  {
+    "id": "sesame_seed",
+    "name": "깨",
+    "default_owned": false
+  },
+  {
+    "id": "bonito_stock",
+    "name": "가쓰오·쯔유",
+    "default_owned": false
+  }
+]
