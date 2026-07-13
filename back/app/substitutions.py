@@ -65,10 +65,20 @@ def seasoning_candidates(required_id: str, recipe: dict[str, Any] | None = None)
     return _candidates(required_id, SEASONING_SUBSTITUTIONS, recipe)
 
 
-def allowed_actual_ingredient_ids(recipe_ingredient_ids: set[str]) -> set[str]:
+def allowed_actual_ingredient_ids(
+    recipe_ingredient_ids: set[str],
+    recipe: dict[str, Any] | None = None,
+    allowed_tiers: set[str] | None = None,
+) -> set[str]:
+    """Return context-valid inventory IDs for meal completion validation.
+
+    Rough substitutions are excluded by default because they are advisory and do not
+    count as a completed recipe requirement in the recommendation engine.
+    """
+    tiers = allowed_tiers or {"exact", "equivalent"}
     allowed: set[str] = set()
     for ingredient_id in recipe_ingredient_ids:
-        # Completion validation is intentionally broad because the selected recommendation
-        # already contains the context-filtered actual inventory IDs.
-        allowed.update(item["id"] for item in _candidates(ingredient_id, INGREDIENT_SUBSTITUTIONS))
+        for item in _candidates(ingredient_id, INGREDIENT_SUBSTITUTIONS, recipe):
+            if item.get("tier", "equivalent") in tiers:
+                allowed.add(item["id"])
     return allowed

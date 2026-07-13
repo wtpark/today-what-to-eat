@@ -42,7 +42,7 @@ async def lifespan(_: FastAPI):
 
 app = FastAPI(
     title="오늘 뭐먹지 API",
-    version="1.1.0",
+    version="1.0.0",
     description="냉장고 선입선출 기반 식재료 관리·메뉴 추천 API",
     lifespan=lifespan,
 )
@@ -336,6 +336,27 @@ def complete_meal(payload: MealCompleteRequest) -> dict[str, Any]:
         if not recipe:
             raise HTTPException(status_code=404, detail="레시피를 찾을 수 없습니다.")
 
+        latest_recommendation = conn.execute(
+            """
+            SELECT requested_at
+            FROM recommendation_history
+            WHERE recipe_id = ?
+            ORDER BY requested_at DESC, id DESC
+            LIMIT 1
+            """,
+            (payload.recipe_id,),
+        ).fetchone()
+        if not latest_recommendation:
+            raise HTTPException(status_code=400, detail="먼저 메뉴 추천을 받은 뒤 식사 완료를 처리해주세요.")
+        try:
+            recommended_at = datetime.fromisoformat(latest_recommendation["requested_at"])
+            if recommended_at.tzinfo is None:
+                recommended_at = recommended_at.replace(tzinfo=KST)
+            if now_kst() - recommended_at.astimezone(KST) > timedelta(hours=12):
+                raise HTTPException(status_code=400, detail="추천 결과가 오래되었습니다. 메뉴를 다시 추천받아주세요.")
+        except ValueError as exc:
+            raise HTTPException(status_code=400, detail="추천 이력 시간이 올바르지 않습니다.") from exc
+
         canonical_ingredient_ids = {
             row[0]
             for row in conn.execute(
@@ -343,7 +364,16 @@ def complete_meal(payload: MealCompleteRequest) -> dict[str, Any]:
                 (payload.recipe_id,),
             ).fetchall()
         }
-        allowed_ingredient_ids = allowed_actual_ingredient_ids(canonical_ingredient_ids)
+        recipe_context = {
+            "cuisine": recipe["cuisine"],
+            "meal_type": recipe["meal_type"],
+            "cooking_method": recipe["cooking_method"],
+        }
+        allowed_ingredient_ids = allowed_actual_ingredient_ids(
+            canonical_ingredient_ids,
+            recipe=recipe_context,
+            allowed_tiers={"exact", "equivalent"},
+        )
         seen_inventory_ids: set[int] = set()
         usage_log = []
         for usage in payload.usage:

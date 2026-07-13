@@ -54,7 +54,7 @@ def test_full_flow_and_catalog_balance():
         assert health.status_code == 200
         assert health.json()["master_ingredients"] == EXPECTED_INGREDIENTS
         assert health.json()["recipes"] == EXPECTED_RECIPES
-        assert health.json()["seed_version"].endswith("v5")
+        assert health.json()["seed_version"].endswith("final")
 
         catalog = client.get("/catalog/summary").json()
         assert sum(catalog["recipes_by_cuisine"].values()) == EXPECTED_RECIPES
@@ -179,6 +179,11 @@ def test_previous_meal_exclusion_and_exact_meal_type_groups():
         assert body["request_summary"]["previous_meal_avoidance"] == "같은 음식 계열 제외"
         assert body.get("preferred_direct_results", []) == []
         assert all(x["meal_type"] == "볶음·구이" for x in body.get("alternative_exact_results", []))
+
+        recipe_type_by_name = {recipe["name"]: recipe["meal_type"] for recipe in RECIPE_SEED}
+        for suggestion in body.get("diagnostics", {}).get("unlock_suggestions", []):
+            assert suggestion["recipe_names"]
+            assert all(recipe_type_by_name[name] == "볶음·구이" for name in suggestion["recipe_names"])
 
 
 def test_priority_rules_freshness_frozen_and_same_day_fifo():
@@ -309,6 +314,79 @@ def test_inventory_update_clears_notes_and_zero_quantity_deletes():
         assert deleted.json()["deleted"] is True
         assert all(x["id"] != created["id"] for x in client.get("/ingredients").json()["items"])
 
+
+
+def test_exact_core_match_precedes_substitution_candidates():
+    master = {item["id"]: item for item in INGREDIENT_SEED}
+    seasoning_names = {item["id"]: item["name"] for item in SEASONING_SEED}
+
+    def lot(ingredient_id: str, lot_id: int):
+        item = master[ingredient_id]
+        return {
+            "id": lot_id,
+            "ingredient_id": ingredient_id,
+            "ingredient_name": item["name"],
+            "category": item["category"],
+            "perishability_level": item["perishability_level"],
+            "opened_window_days": item["opened_window_days"],
+            "freshness_window_days": item["freshness_window_days"],
+            "condition_profile": item["condition_profile"],
+            "detail_name": "",
+            "quantity": 1,
+            "unit": item.get("common_units", ["개"])[0],
+            "storage": item["default_storage"],
+            "purchase_date": date.today().isoformat(),
+            "expiry_date": None,
+            "opened": 0,
+            "opened_date": None,
+            "priority_override": 0,
+            "condition_status": "normal",
+            "condition_notes": [],
+            "note": "",
+        }
+
+    def hydrated_recipe(recipe_id: str):
+        raw = next(dict(item) for item in RECIPE_SEED if item["id"] == recipe_id)
+        raw["ingredients"] = [
+            {**entry, "name": master[entry["ingredient_id"]]["name"]}
+            for entry in raw.get("ingredients", [])
+        ]
+        raw["seasonings"] = [
+            {**entry, "name": seasoning_names[entry["seasoning_id"]]}
+            for entry in raw.get("seasonings", [])
+        ]
+        return raw
+
+    all_owned = [dict(item, owned=1) for item in SEASONING_SEED]
+    owned_ids = [item["id"] for item in SEASONING_SEED]
+
+    cases = [
+        ("ws_cream_pasta", ["pasta", "milk"], ["냄비", "프라이팬"]),
+        ("ws_mushroom_risotto", ["cooked_rice", "mushroom", "milk"], ["냄비"]),
+        ("ws_cream_potato_soup", ["potato", "onion", "milk"], ["냄비"]),
+    ]
+    for case_index, (recipe_id, ingredient_ids, appliances) in enumerate(cases):
+        inventory = [lot(ingredient_id, case_index * 10 + index + 1) for index, ingredient_id in enumerate(ingredient_ids)]
+        result = recommend(
+            inventory,
+            all_owned,
+            [hydrated_recipe(recipe_id)],
+            [],
+            recommendation_payload(
+                preferred_cuisine="양식",
+                preferred_meal_type="상관없음",
+                max_cooking_minutes=60,
+                appliances=appliances,
+                temporary_owned_seasoning_ids=owned_ids,
+            ),
+        )
+        direct_ids = {item["recipe_id"] for item in result.get("direct_results", [])}
+        one_more_ids = {item["recipe_id"] for item in result.get("one_more_results", [])}
+        assert recipe_id in direct_ids
+        assert recipe_id not in one_more_ids
+        recipe_result = next(item for item in result["direct_results"] if item["recipe_id"] == recipe_id)
+        assert not any("생크림" in item.get("name", "") for item in recipe_result.get("missing_to_make", []))
+        assert not any("생크림 대신 우유" in text for text in recipe_result.get("substitutions_used", []))
 
 def test_tool_alternative_groups():
     with TestClient(app) as client:

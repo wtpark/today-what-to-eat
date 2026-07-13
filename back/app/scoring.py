@@ -290,32 +290,127 @@ def _diversity_ratio(
     return ratio, reasons
 
 
-def _match_ingredient(
-    required: dict[str, Any],
+def _build_ingredient_match(
+    required: dict[str, Any], candidate: dict[str, Any]
+) -> dict[str, Any]:
+    return {
+        "canonical_id": required["ingredient_id"],
+        "canonical_name": required["name"],
+        "actual_id": candidate["id"],
+        "quality": float(candidate["quality"]),
+        "tier": candidate.get("tier", "equivalent"),
+        "warning": candidate.get("warning"),
+        "role": required["role"],
+        "weight": float(required["weight"]),
+    }
+
+
+def _match_requirement_group(
+    requirements: list[dict[str, Any]],
     available_ids: set[str],
     used_actual_ids: set[str],
     allow_substitutions: bool,
     recipe: dict[str, Any],
-) -> dict[str, Any] | None:
-    candidates = (
-        ingredient_candidates(required["ingredient_id"], recipe)
-        if allow_substitutions
-        else [{"id": required["ingredient_id"], "quality": 1.0, "tier": "exact", "warning": None}]
-    )
-    for candidate in candidates:
-        actual_id = candidate["id"]
-        if actual_id in available_ids and actual_id not in used_actual_ids:
-            return {
-                "canonical_id": required["ingredient_id"],
-                "canonical_name": required["name"],
-                "actual_id": actual_id,
-                "quality": candidate["quality"],
-                "tier": candidate.get("tier", "equivalent"),
-                "warning": candidate.get("warning"),
-                "role": required["role"],
-                "weight": float(required["weight"]),
-            }
-    return None
+    *,
+    limit: int | None = None,
+) -> list[dict[str, Any]]:
+    """Match a requirement group without depending on JSON order.
+
+    Exact inventory matches are reserved first across the entire group. Remaining
+    requirements are then solved as a small bipartite matching problem using only
+    equivalent substitutions. Rough substitutions never satisfy must/core slots.
+    """
+    if limit is not None and limit <= 0:
+        return []
+
+    matches: list[dict[str, Any]] = []
+    unmatched: list[dict[str, Any]] = []
+    local_used = set(used_actual_ids)
+
+    # Phase 1: reserve all exact matches before considering any substitution.
+    for required in requirements:
+        canonical_id = required["ingredient_id"]
+        if (limit is None or len(matches) < limit) and canonical_id in available_ids and canonical_id not in local_used:
+            exact = {"id": canonical_id, "quality": 1.0, "tier": "exact", "warning": None}
+            matches.append(_build_ingredient_match(required, exact))
+            local_used.add(canonical_id)
+        else:
+            unmatched.append(required)
+
+    remaining_slots = None if limit is None else max(limit - len(matches), 0)
+    if remaining_slots == 0 or not allow_substitutions or not unmatched:
+        used_actual_ids.update(local_used - used_actual_ids)
+        return matches
+
+    # Phase 2: find the best non-overlapping equivalent assignment.
+    equivalent_options: list[tuple[dict[str, Any], list[dict[str, Any]]]] = []
+    for required in unmatched:
+        candidates = [
+            candidate
+            for candidate in ingredient_candidates(required["ingredient_id"], recipe)
+            if candidate.get("tier") == "equivalent"
+            and candidate["id"] in available_ids
+            and candidate["id"] not in local_used
+        ]
+        candidates.sort(key=lambda x: (-float(x.get("quality", 0.0)), x["id"]))
+        equivalent_options.append((required, candidates))
+
+    best: list[dict[str, Any]] = []
+    best_key = (-1, -1.0)
+
+    def search(index: int, chosen: list[dict[str, Any]], chosen_ids: set[str]) -> None:
+        nonlocal best, best_key
+        if remaining_slots is not None and len(chosen) >= remaining_slots:
+            key = (len(chosen), sum(float(item["quality"]) for item in chosen))
+            if key > best_key:
+                best_key = key
+                best = list(chosen)
+            return
+        if index >= len(equivalent_options):
+            key = (len(chosen), sum(float(item["quality"]) for item in chosen))
+            if key > best_key:
+                best_key = key
+                best = list(chosen)
+            return
+
+        required, candidates = equivalent_options[index]
+        # Skipping remains an option when no non-overlapping assignment exists.
+        search(index + 1, chosen, chosen_ids)
+        for candidate in candidates:
+            actual_id = candidate["id"]
+            if actual_id in chosen_ids:
+                continue
+            match = _build_ingredient_match(required, candidate)
+            chosen.append(match)
+            chosen_ids.add(actual_id)
+            search(index + 1, chosen, chosen_ids)
+            chosen_ids.remove(actual_id)
+            chosen.pop()
+
+    search(0, [], set())
+    matches.extend(best)
+    local_used.update(item["actual_id"] for item in best)
+    used_actual_ids.update(local_used - used_actual_ids)
+    return matches
+
+def _rough_ingredient_warnings(
+    requirements: list[dict[str, Any]],
+    available_ids: set[str],
+    recipe: dict[str, Any],
+    ingredient_names: dict[str, str],
+) -> list[str]:
+    warnings: list[str] = []
+    for required in requirements:
+        for candidate in ingredient_candidates(required["ingredient_id"], recipe):
+            if candidate.get("tier") != "rough" or candidate["id"] not in available_ids:
+                continue
+            actual_name = ingredient_names.get(candidate["id"], candidate["id"])
+            detail = candidate.get("warning") or "원래 레시피와 맛이나 식감이 달라질 수 있습니다."
+            warnings.append(
+                f"간이 대체 후보: {required['name']} 대신 {actual_name} 사용 가능 · {detail}"
+            )
+            break
+    return warnings
 
 
 def _match_seasoning(
@@ -423,33 +518,47 @@ def _evaluate_recipe(
     core = [x for x in recipe["ingredients"] if x["role"] == "core"]
     supporting = [x for x in recipe["ingredients"] if x["role"] == "supporting"]
 
-    matched_must: list[dict[str, Any]] = []
     missing_groups: list[dict[str, Any]] = []
-    for requirement in must:
-        match = _match_ingredient(requirement, available_ids, used_actual_ids, allow_substitutions, recipe)
-        if match:
-            used_actual_ids.add(match["actual_id"])
-            matched_must.append(match)
-            if match["tier"] == "rough":
-                missing_groups.append(
-                    {"type": "ingredient", "id": requirement["ingredient_id"], "name": requirement["name"]}
-                )
-        else:
-            missing_groups.append(
-                {"type": "ingredient", "id": requirement["ingredient_id"], "name": requirement["name"]}
-            )
 
-    matched_core: list[dict[str, Any]] = []
-    for requirement in core:
-        match = _match_ingredient(requirement, available_ids, used_actual_ids, allow_substitutions, recipe)
-        if match:
-            used_actual_ids.add(match["actual_id"])
-            matched_core.append(match)
-    valid_core_count = sum(1 for m in matched_core if m["tier"] != "rough")
-    core_needed = max(int(recipe.get("min_core_count", 0)) - valid_core_count, 0)
+    ingredient_name_by_id = {
+        ingredient_id: lots[0]["ingredient_name"]
+        for ingredient_id, lots in inventory_by_ingredient.items()
+    }
+
+    matched_must = _match_requirement_group(
+        must, available_ids, used_actual_ids, allow_substitutions, recipe
+    )
+    matched_must_canonical = {item["canonical_id"] for item in matched_must}
+    missing_must_requirements = [
+        requirement for requirement in must
+        if requirement["ingredient_id"] not in matched_must_canonical
+    ]
+    for requirement in missing_must_requirements:
+        missing_groups.append(
+            {"type": "ingredient", "id": requirement["ingredient_id"], "name": requirement["name"]}
+        )
+    if allow_substitutions:
+        substitution_warnings.extend(
+            _rough_ingredient_warnings(
+                missing_must_requirements, available_ids, recipe, ingredient_name_by_id
+            )
+        )
+
+    min_core_count = max(int(recipe.get("min_core_count", 0)), 0)
+    matched_core = _match_requirement_group(
+        core,
+        available_ids,
+        used_actual_ids,
+        allow_substitutions,
+        recipe,
+        limit=min_core_count,
+    )
+    valid_core_count = len(matched_core)
+    core_needed = max(min_core_count - valid_core_count, 0)
     if core_needed:
+        matched_core_canonical = {item["canonical_id"] for item in matched_core}
         missing_names = [
-            x["name"] for x in core if x["ingredient_id"] not in {m["canonical_id"] for m in matched_core if m["tier"] != "rough"}
+            item["name"] for item in core if item["ingredient_id"] not in matched_core_canonical
         ]
         missing_groups.append(
             {
@@ -459,13 +568,19 @@ def _evaluate_recipe(
                 "needed_count": core_needed,
             }
         )
+        if allow_substitutions:
+            unmatched_core_requirements = [
+                item for item in core if item["ingredient_id"] not in matched_core_canonical
+            ]
+            substitution_warnings.extend(
+                _rough_ingredient_warnings(
+                    unmatched_core_requirements, available_ids, recipe, ingredient_name_by_id
+                )
+            )
 
-    matched_supporting: list[dict[str, Any]] = []
-    for requirement in supporting:
-        match = _match_ingredient(requirement, available_ids, used_actual_ids, allow_substitutions, recipe)
-        if match:
-            used_actual_ids.add(match["actual_id"])
-            matched_supporting.append(match)
+    matched_supporting = _match_requirement_group(
+        supporting, available_ids, used_actual_ids, allow_substitutions, recipe
+    )
 
     matched_seasonings: list[dict[str, Any]] = []
     missing_optional_seasonings: list[str] = []
@@ -488,9 +603,6 @@ def _evaluate_recipe(
         return None, "missing_many", missing_groups
 
     all_matches = matched_must + matched_core + matched_supporting
-    ingredient_name_by_id = {
-        ingredient_id: lots[0]["ingredient_name"] for ingredient_id, lots in inventory_by_ingredient.items()
-    }
     for match in all_matches:
         if match["actual_id"] != match["canonical_id"]:
             substitutions_used.append(
@@ -742,7 +854,11 @@ def recommend(
             continue
         if result["missing_to_make"]:
             one_more.append(result)
-            if is_preferred and result["missing_units"] == 1:
+            matches_selected_meal_type = (
+                preferred_meal_type == "상관없음"
+                or result["meal_type"] == preferred_meal_type
+            )
+            if is_preferred and matches_selected_meal_type and result["missing_units"] == 1:
                 missing = result["missing_to_make"][0]
                 unlock_map[(missing["type"], missing["name"])].add(result["name"])
         else:

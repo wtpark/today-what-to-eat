@@ -57,7 +57,7 @@
     ],
     "min_core_count": 1,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_kimchi_stew"
   },
   {
@@ -113,7 +113,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_doenjang_stew"
   },
   {
@@ -176,7 +176,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_spicy_pork"
   },
   {
@@ -240,7 +240,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_dakgalbi"
   },
   {
@@ -300,7 +300,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_egg_fried_rice"
   },
   {
@@ -354,7 +354,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_braised_tofu"
   },
   {
@@ -404,7 +404,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_bibim_noodle"
   },
   {
@@ -469,7 +469,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_kimchi_fried_rice"
   },
   {
@@ -533,7 +533,7 @@
     ],
     "min_core_count": 1,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "cn_mapo_tofu"
   },
   {
@@ -579,7 +579,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "cn_tomato_egg"
   },
   {
@@ -634,7 +634,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "cn_pork_bokchoy"
   },
   {
@@ -694,7 +694,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "cn_shrimp_fried_rice"
   },
   {
@@ -753,7 +753,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "cn_pepper_pork"
   },
   {
@@ -808,7 +808,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "cn_chicken_oyster"
   },
   {
@@ -867,7 +867,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "cn_eggplant"
   },
   {
@@ -924,7 +924,7 @@
     ],
     "min_core_count": 1,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "cn_jjajang_noodle"
   },
   {
@@ -975,7 +975,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "jp_gyudon"
   },
   {
@@ -1026,7 +1026,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "jp_oyakodon"
   },
   {
@@ -1077,7 +1077,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "jp_udon"
   },
   {
@@ -1143,7 +1143,7 @@
     ],
     "min_core_count": 1,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "jp_yaki_udon"
   },
   {
@@ -1203,7 +1203,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "jp_okonomiyaki"
   },
   {
@@ -1253,7 +1253,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "jp_teriyaki_chicken"
   },
   {
@@ -1304,7 +1304,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "jp_nikujaga"
   },
   {
@@ -1349,7 +1349,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "jp_tamagoyaki"
   },
   {
@@ -1405,7 +1405,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "ws_tomato_pasta"
   },
   {
@@ -1467,7 +1467,7 @@
     ],
     "min_core_count": 1,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "ws_cream_pasta"
   },
   {
@@ -1509,7 +1509,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "ws_aglio_olio"
   },
   {
@@ -1564,7 +1564,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "ws_chicken_steak"
   },
   {
@@ -1628,7 +1628,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "ws_beef_stew"
   },
   {
@@ -1694,7 +1694,7 @@
     ],
     "min_core_count": 1,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "ws_cheese_omelette"
   },
   {
@@ -1751,7 +1751,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "ws_tortilla_pizza"
   },
   {
@@ -1812,7 +1812,7 @@
     ],
     "min_core_count": 1,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "ws_mushroom_risotto"
   },
   {
@@ -1873,7 +1873,7 @@
     ],
     "min_core_count": 1,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_soft_tofu_stew"
   },
   {
@@ -1920,7 +1920,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_kimchi_pancake"
   },
   {
@@ -1966,7 +1966,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_potato_pancake"
   },
   {
@@ -2026,7 +2026,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_braised_chicken"
   },
   {
@@ -2076,7 +2076,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "cn_egg_drop_soup"
   },
   {
@@ -2127,7 +2127,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "cn_pork_sprout"
   },
   {
@@ -2193,7 +2193,7 @@
     ],
     "min_core_count": 2,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "cn_chow_mein"
   },
   {
@@ -2253,7 +2253,7 @@
     ],
     "min_core_count": 1,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "cn_mapo_eggplant"
   },
   {
@@ -2311,7 +2311,7 @@
     ],
     "min_core_count": 1,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "jp_curry_rice"
   },
   {
@@ -2368,7 +2368,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "jp_omurice"
   },
   {
@@ -2415,7 +2415,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "jp_miso_tofu_soup"
   },
   {
@@ -2465,7 +2465,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "jp_shogayaki"
   },
   {
@@ -2517,7 +2517,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "ws_ham_cheese_sandwich"
   },
   {
@@ -2573,7 +2573,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "ws_tomato_omelette"
   },
   {
@@ -2631,7 +2631,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "ws_potato_cheese_bake"
   },
   {
@@ -2691,7 +2691,7 @@
     ],
     "min_core_count": 1,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "ws_cream_potato_soup"
   },
   {
@@ -2742,7 +2742,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_tteokbokki"
   },
   {
@@ -2788,7 +2788,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_fishcake_stirfry"
   },
   {
@@ -2829,7 +2829,7 @@
     ],
     "min_core_count": 1,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_seaweed_soup"
   },
   {
@@ -2865,7 +2865,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_steamed_egg"
   },
   {
@@ -2912,7 +2912,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_banquet_noodle"
   },
   {
@@ -2968,7 +2968,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_spicy_squid"
   },
   {
@@ -3003,7 +3003,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_grilled_mackerel"
   },
   {
@@ -3050,7 +3050,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_tuna_mayo_rice"
   },
   {
@@ -3081,7 +3081,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_pan_fried_dumplings"
   },
   {
@@ -3128,7 +3128,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_dumpling_soup"
   },
   {
@@ -3175,7 +3175,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_cold_noodle"
   },
   {
@@ -3208,7 +3208,7 @@
     "seasonings": [],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_instant_bibim_noodle"
   },
   {
@@ -3248,7 +3248,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_airfryer_cutlet"
   },
   {
@@ -3291,7 +3291,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_radish_salad"
   },
   {
@@ -3346,7 +3346,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_mackerel_radish_braise"
   },
   {
@@ -3391,7 +3391,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "lt_tuna_cabbage_salad"
   },
   {
@@ -3440,7 +3440,7 @@
     ],
     "min_core_count": 1,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "lt_tofu_salad"
   },
   {
@@ -3489,7 +3489,7 @@
     ],
     "min_core_count": 1,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "lt_tomato_cheese_salad"
   },
   {
@@ -3533,7 +3533,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "lt_coleslaw"
   },
   {
@@ -3591,7 +3591,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "ws_salmon_lemon_steak"
   },
   {
@@ -3645,7 +3645,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "lt_yogurt_cabbage_salad"
   },
   {
@@ -3685,7 +3685,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_spinach_namul"
   },
   {
@@ -3750,7 +3750,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_japchae"
   },
   {
@@ -3806,7 +3806,7 @@
     ],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "ws_avocado_egg_toast"
   },
   {
@@ -3833,7 +3833,7 @@
     "seasonings": [],
     "min_core_count": 0,
     "image_path": null,
-    "source": "curated_project_v5",
+    "source": "curated_internal_seed",
     "source_recipe_id": "kr_quick_roasted_sweet_potato"
   }
 ]

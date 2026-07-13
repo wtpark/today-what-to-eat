@@ -1,62 +1,109 @@
-# 오늘 뭐먹지 V5
+# 오늘 뭐먹지
 
-냉장고 재고를 구매 묶음별로 저장하고, 선입선출·표시기한·개봉 상태·현재 취향·직전/최근 식사·보유 양념·조리 조건을 함께 반영해 메뉴를 추천하는 웹앱입니다.
+냉장고에 저장한 식재료, 선입선출 우선도, 현재 취향, 직전·최근 식사, 보유 양념과 조리 조건을 함께 반영하는 **규칙 기반 메뉴 추천 웹 애플리케이션**입니다.
 
-- Frontend: Streamlit
-- Backend: FastAPI
-- Database: SQLite
-- Deployment: Docker Compose + AWS EC2
+> 이 프로젝트는 생성형 AI나 머신러닝 모델이 아니라, 공개된 기준과 프로젝트 정책으로 구성한 설명 가능한 가중치 추천 시스템입니다.
 
-## V5 핵심 변화
+## 제출·시연 정보
 
-- 식재료 69개, 양념 32개, 활성 레시피 73개
-- 표시기한 입력 체크 즉시 날짜 입력란 표시
-- 표시기한이 없는 식재료는 `freshness_window_days` 관리 구간으로 우선도 보완
-- 개봉 즉시 기본 우선도 5점 부여 후 경과일에 따라 추가 반영
-- 같은 날 구매한 같은 재료는 동일 FIFO 점수 적용
-- 사용자 지정 `우선 사용`을 실제 메뉴 추천 순위에 반영
-- 직전 식사 입력과 최근 식사 기록의 중복 감점 방지
-- 직전 식사 회피 조건을 명확한 6단계로 정리
-- 선택 음식 계열·식사 형태 완전 일치 결과와 완화 결과 분리
-- 핵심 재료가 실제로 2개 부족한 메뉴를 `하나만 더`로 잘못 표시하던 문제 수정
-- 대체 재료를 `동등 대체`와 `간이 대체`로 분리하고 조리 문맥 제한
-- 샐러드에서 토마토를 토마토소스로 대체하는 등 부자연스러운 대체 차단
-- 조리 완료 시 최소 한 재료의 실제 사용량을 요구
-- 수량을 0으로 수정하면 해당 재고 자동 삭제
-- 상태를 정상으로 변경하면 이전 상태 메모 자동 제거
-- 냉장고 요약에서 상태 확인·표시기한 경과·사용자 제외·수량 없음 분리
-- 사용 이력이 있는 레시피는 삭제하지 않고 `active=0`으로 비활성화
-- 중복 검색 별칭 검증 및 충돌 제거
-- 불필요한 믹서기 선택지 제거
+- GitHub: `https://github.com/wtpark/today-what-to-eat`
+- 배포 주소: `http://<현재 EC2 Public IPv4>`
+- YouTube 데모: `제출 전 링크 입력`
 
-## 데이터 출처
+AWS Learner Lab에서 인스턴스를 중지했다 다시 시작하면 퍼블릭 IPv4가 바뀔 수 있으므로, 배포 주소는 시연 직전에 다시 확인합니다.
 
-식재료와 레시피는 추천 기능 검증을 위해 프로젝트 내부에서 직접 구조화한 시드 데이터입니다.
+## 핵심 기능
+
+- 식재료를 구매 묶음 단위로 등록·수정·삭제
+- SQLite와 Docker volume을 이용한 영구 저장
+- 표시기한, 개봉 경과, 구매 순서, 식품군 특성을 반영한 소비 우선도
+- 냉장 보관보다 냉동 보관의 우선도를 낮추는 보정
+- 식품군별 상태 질문과 추천 제외 처리
+- 보유 양념장 영구 저장
+- 음식 계열, 식사 형태, 조리시간, 조리기구 기반 추천
+- 직전 식사와 최근 식사 기록을 이용한 반복 감소
+- 정확 일치 우선, 동등 대체 후순위의 순서 독립 재료 매칭
+- 완전 일치 / 같은 계열 다른 형태 / 대체 계열 / 하나 더 필요한 메뉴 분리
+- 추천 이유와 항목별 점수 공개
+- `이 메뉴로 먹었어요`에서 실제 사용량 입력 후 재고 차감과 식사 기록 저장
+- 빈 냉장고, 추천 후보 없음, 오래된 추천 결과 등의 예외 처리
+
+## 아키텍처
 
 ```text
-source = curated_project_v5
+사용자 브라우저
+  ↓ HTTP :80
+Streamlit 프론트엔드
+  ↓ Docker 내부 HTTP (http://back:8000)
+FastAPI 백엔드
+  ↓
+SQLite 데이터베이스 + Docker volume
 ```
 
-공공데이터 API를 실시간 호출하거나 외부 레시피를 그대로 복사한 데이터가 아닙니다. 발표에서는 **프로젝트용 정제 시드 데이터**라고 설명해야 합니다.
+```text
+식재료 등록/수정 → FastAPI CRUD → SQLite 저장
+메뉴 추천 요청 → FastAPI 추천 엔진 → JSON 응답 → Streamlit 결과 표시
+조리 완료 → 재료별 사용량 입력 → 재고 차감 + 식사 기록 저장
+```
 
-## 소비 우선도 정책
+## 기술 스택
 
-식품 안전 확률이 아니라 재고의 상대적 소비 순서를 정하는 서비스 정책 점수입니다.
+- Python
+- Streamlit
+- FastAPI
+- Pydantic
+- SQLite
+- Docker / Docker Compose
+- AWS EC2
+- Git / GitHub
 
-- 포장지 표시기한이 있으면 실제 입력 날짜를 최우선 사용
-- 표시기한이 없으면 식재료별 관리 구간과 구매일로 최대 40점 추정
-- 개봉 시 5점, 개봉 후 경과에 따라 최대 20점
-- 동일 품목 내 구매일 기반 FIFO 및 구매 경과 최대 20점
-- 식품군 소비 민감도 최대 10점
-- 냉동은 구성 점수에 0.35 보정
-- 표시기한 경과·상태 확인 필요·사용자 제외 재료는 추천에서 제외
+## 데이터
 
-`freshness_window_days`는 섭취 가능 기한이 아니라 표시기한이 없는 식재료를 정렬하기 위한 **앱 내부 관리 구간**입니다.
+- 식재료 마스터: **69개**
+- 양념: **32개**
+- 레시피: **73개**
+  - 한식 31개
+  - 중식 12개
+  - 일식 12개
+  - 양식 18개
+
+레시피와 식재료 데이터는 기능 검증을 위해 직접 구조화한 프로젝트 내부 시드이며, 레시피의 `source` 값은 `curated_internal_seed`입니다. 외부 공공데이터를 실시간으로 호출하지 않으므로 EC2 시연 중 외부 API 장애에 영향을 받지 않습니다.
+
+## 추천 방식
+
+추천 점수는 식품 안전 확률이 아니라 메뉴 후보 간 상대 순위를 정하는 정책 점수입니다.
+
+균형 모드 기준:
+
+| 항목 | 배점 |
+|---|---:|
+| 우선 재료 활용 | 35 |
+| 재료·양념 충족 | 25 |
+| 현재 취향 | 20 |
+| 최근 식사 다양성 | 10 |
+| 조리 편의성 | 10 |
+
+추천 전 다음 조건은 점수 계산 전에 필터링합니다.
+
+- 상태 확인 또는 사용자 제외 식재료
+- 표시기한이 지난 식재료
+- 필수 조리기구 부족
+- 조리 가능 시간 초과
+- 필수 재료가 둘 이상 부족한 메뉴
+
+재료 매칭은 다음 순서를 사용합니다.
+
+1. 모든 조건의 정확히 같은 재료를 먼저 배정
+2. 남은 조건에만 동등 대체 재료 배정
+3. 간이 대체는 완전 충족으로 계산하지 않고 경고 또는 부족 후보로 처리
+4. 하나의 실제 재료는 여러 조건에 중복 배정하지 않음
+
+세부 기준은 [추천 점수 정책](docs/SCORING_POLICY.md)을 참고하세요.
 
 ## 프로젝트 구조
 
 ```text
-today-what-to-eat-v5/
+today-what-to-eat/
 ├─ front/
 │  ├─ app.py
 │  ├─ Dockerfile
@@ -65,24 +112,53 @@ today-what-to-eat-v5/
 ├─ back/
 │  ├─ app/
 │  ├─ seed/
+│  ├─ sql/
 │  ├─ scripts/
-│  ├─ sql/schema.sql
 │  ├─ tests/
 │  ├─ Dockerfile
-│  └─ requirements.txt
+│  ├─ requirements.txt
+│  └─ requirements-dev.txt
 ├─ docs/
 ├─ scripts/
 ├─ docker-compose.yml
+├─ LICENSE
 └─ README.md
 ```
 
-## Docker 실행
+루트 `scripts/`는 호스트에서 실행하는 점검 도구이고, `back/scripts/`는 Docker 컨테이너 내부에서 사용하는 도구입니다.
+
+## Docker로 실행
 
 ```bash
-sudo docker compose config
-sudo docker compose build --no-cache
+sudo docker compose build
 sudo docker compose up -d
 sudo docker compose ps
+```
+
+정상 상태:
+
+```text
+today-menu-back    Up (healthy)
+today-menu-front   Up
+```
+
+상태 확인:
+
+```bash
+curl -s http://127.0.0.1:8000/health | python3 -m json.tool
+curl -I http://127.0.0.1
+```
+
+정상 핵심 응답:
+
+```json
+{
+  "status": "ok",
+  "database": "connected",
+  "master_ingredients": 69,
+  "recipes": 73,
+  "seed_version": "2026-07-14-final"
+}
 ```
 
 브라우저:
@@ -91,64 +167,81 @@ sudo docker compose ps
 http://현재_EC2_퍼블릭_IP
 ```
 
-FastAPI 상태:
-
-```bash
-curl -s http://127.0.0.1:8000/health | python3 -m json.tool
-```
-
-정상 V5 예시:
-
-```json
-{
-  "status": "ok",
-  "database": "connected",
-  "master_ingredients": 69,
-  "recipes": 73,
-  "seed_version": "2026-07-14-v5"
-}
-```
-
-## 기존 V4 DB 자동 마이그레이션
-
-FastAPI 시작 시 기존 SQLite DB에 다음 컬럼이 없으면 자동으로 추가합니다.
-
-```text
-ingredient_master.freshness_window_days
-recipes.active
-```
-
-기존 사용자 재고·양념 설정·식사 이력은 유지됩니다. 시드에서 빠진 레시피도 이력 보존을 위해 물리 삭제하지 않고 `active=0`으로 비활성화합니다.
+상세 배포 절차는 [AWS EC2 배포 안내](docs/EC2_DEPLOY.md)를 참고하세요.
 
 ## 테스트
 
 ```bash
 cd back
+python -m pip install -r requirements-dev.txt
 PYTHONPATH=. pytest -q
 ```
 
-현재 자동 테스트 결과:
+최종 자동 테스트는 다음을 포함합니다.
 
-```text
-7 passed
+- 시드 자동 초기화
+- 고아 식재료와 별칭 중복 검사
+- 소비 우선도와 냉동 보정
+- 직전 식사 제외와 식사 형태 그룹
+- 대체 조리기구
+- 크림 파스타·리소토·감자수프 정확 매칭 회귀 테스트
+- 상태 정상화와 수량 0 삭제
+- 조리 완료 실제 사용량 검증
+
+호스트 점검:
+
+```bash
+python3 scripts/check_orphan_ingredients.py
 ```
 
-추가로 전체 Python 문법 검사, JSON 파싱, V4 → V5 SQLite 마이그레이션을 확인했습니다. 현재 제작 환경에서는 Docker 엔진과 실제 브라우저 렌더링을 실행하지 못했으므로 EC2에서 최종 빌드 확인이 필요합니다.
+컨테이너 DB 확인:
 
-## 주의사항
+```bash
+sudo docker exec today-menu-back python /app/scripts/inspect_db.py
+```
 
-- `/demo/load`는 과제 시연용 공개 엔드포인트입니다. 실제 서비스에서는 인증이 필요합니다.
-- 식재료 종류 자체를 잘못 선택한 경우 해당 재고를 삭제하고 다시 등록합니다.
-- 레시피별 정확한 필요량·인분·단위 환산은 공공 레시피 계량 데이터를 확보한 뒤 후속 발전 과제로 진행합니다.
-- 현재는 개인 시연을 전제로 하나의 SQLite 냉장고를 사용합니다.
-- `sudo docker compose down -v`는 사용자 재고·양념·식사 기록까지 삭제하므로 일반 업데이트에서는 실행하지 않습니다.
+## 주요 API
 
-## 문서
+```text
+GET    /health
+GET    /master/ingredients
+GET    /ingredients
+POST   /ingredients
+PUT    /ingredients/{id}
+DELETE /ingredients/{id}
+GET    /seasonings
+PUT    /seasonings
+POST   /recommend
+POST   /meals/complete
+GET    /meals/history
+POST   /demo/load
+```
 
-- [V5 변경 사항](docs/CHANGELOG_V5.md)
-- [추천 점수 정책](docs/SCORING_POLICY.md)
-- [데이터 카탈로그](docs/DATA_CATALOG.md)
-- [SQLite와 SQL 설명](docs/DATABASE_GUIDE.md)
-- [FastAPI 호출 예시](docs/API_EXAMPLES.md)
-- [EC2 배포 안내](docs/EC2_DEPLOY.md)
-- [후속 발전 과제](docs/NEXT_TASKS.md)
+`/demo/load`는 과제 시연 편의를 위한 공개 엔드포인트입니다. 실제 서비스에서는 관리자 인증이나 접근 제한이 필요합니다.
+
+## 시연 권장 흐름
+
+1. EC2에서 `docker compose ps` 확인
+2. `/health` 응답 확인
+3. 브라우저에서 냉장고 현황 확인
+4. 식재료 추가 또는 다국적 균형 데모 불러오기
+5. 내 양념장 저장
+6. 기본 추천 조건 입력 후 추천 요청
+7. 완전 일치·대체 추천과 점수 근거 확인
+8. `이 메뉴로 먹었어요` 클릭
+9. 하단에서 재료별 실제 사용량 입력
+10. 재고 차감과 식사 기록 저장 확인
+11. FastAPI 로그에서 `POST /recommend 200 OK`, `POST /meals/complete 201 Created` 확인
+
+## 제한사항과 발전 방향
+
+- 현재 재료 존재 여부 중심이며, 레시피 1인분 필요량과 단위 환산은 지원하지 않음
+- 단일 사용자·단일 냉장고 구조
+- 추천 당시 재고 스냅샷을 별도 `recommendation_id`로 저장하지 않음
+- 식재료별 관리 구간은 소비 순서를 위한 정책값이며 식품 안전 기한이 아님
+- 레시피 이미지는 포함하지 않음
+- 공공 레시피 API 연동과 자동 정규화는 후속 과제
+
+## 라이선스
+
+MIT License. 자세한 내용은 [LICENSE](LICENSE)를 참고하세요.

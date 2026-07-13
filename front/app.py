@@ -8,6 +8,7 @@ from zoneinfo import ZoneInfo
 import pandas as pd
 import requests
 import streamlit as st
+import streamlit.components.v1 as components
 
 API_URL = os.getenv("API_URL", "http://localhost:8000").rstrip("/")
 KST = ZoneInfo("Asia/Seoul")
@@ -113,6 +114,13 @@ def nav_to(label: str):
     st.rerun()
 
 
+def invalidate_recommendation() -> None:
+    """Discard recommendations calculated from an older pantry or inventory state."""
+    st.session_state.recommendation_result = None
+    st.session_state.selected_recipe = None
+    st.session_state.scroll_to_completion = False
+
+
 def get_health() -> dict[str, Any] | None:
     try:
         return api_request("GET", "/health")
@@ -150,6 +158,13 @@ def format_tools(tools: list[Any]) -> str:
 def missing_label(item: dict[str, Any]) -> str:
     prefix = {"ingredient": "재료", "core_option": "선택 재료", "seasoning": "핵심 양념"}.get(item.get("type"), "항목")
     return f"{prefix}: {item['name']}"
+
+
+def format_ingredient_option(item: dict[str, Any]) -> str:
+    """Avoid redundant labels such as '두부 · 두부'."""
+    name = str(item["name"]).strip()
+    category = str(CATEGORY_LABELS.get(item["category"], item["category"])).strip()
+    return name if name == category else f"{name} · {category}"
 
 
 def render_recipe_card(recipe: dict[str, Any], rank: int, section_key: str, allow_complete: bool = True):
@@ -196,6 +211,7 @@ def render_recipe_card(recipe: dict[str, Any], rank: int, section_key: str, allo
 
         if allow_complete and st.button("이 메뉴로 먹었어요", key=f"eat_{section_key}_{recipe['recipe_id']}", type="primary"):
             st.session_state.selected_recipe = recipe
+            st.session_state.scroll_to_completion = True
             st.rerun()
 
 
@@ -300,6 +316,8 @@ for key, default in {
     "form_generation": 0,
     "recommendation_result": None,
     "selected_recipe": None,
+    "scroll_to_completion": False,
+    "flash_message": None,
 }.items():
     st.session_state.setdefault(key, default)
 
@@ -431,6 +449,7 @@ elif st.session_state.nav == "🧊 냉장고 현황":
         if b.button("다국적 균형 데모", use_container_width=True):
             try:
                 result = api_request("POST", "/demo/load", json={"only_when_empty": True, "profile": "balanced", "load_balanced_pantry": True})
+                invalidate_recommendation()
                 st.success(result["message"])
                 st.rerun()
             except ApiError as exc:
@@ -438,6 +457,7 @@ elif st.session_state.nav == "🧊 냉장고 현황":
         if c.button("한식 중심 데모", use_container_width=True):
             try:
                 result = api_request("POST", "/demo/load", json={"only_when_empty": True, "profile": "korean", "load_balanced_pantry": True})
+                invalidate_recommendation()
                 st.success(result["message"])
                 st.rerun()
             except ApiError as exc:
@@ -551,6 +571,7 @@ elif st.session_state.nav == "🧊 냉장고 현황":
                                         "note": note,
                                     },
                                 )
+                                invalidate_recommendation()
                                 st.success("보관 위치·구매일을 포함해 수정했습니다.")
                                 st.rerun()
                             except ApiError as exc:
@@ -563,6 +584,7 @@ elif st.session_state.nav == "🧊 냉장고 현황":
                     if rc2.button("이 재고 삭제", key=f"delete_{item['id']}", use_container_width=True, type="secondary"):
                         try:
                             api_request("DELETE", f"/ingredients/{item['id']}")
+                            invalidate_recommendation()
                             st.success("삭제했습니다.")
                             st.rerun()
                         except ApiError as exc:
@@ -627,7 +649,7 @@ elif st.session_state.nav == "➕ 식재료 추가":
         "식재료",
         filtered_ids,
         index=default_index,
-        format_func=lambda value: f"{master_by_id[value]['name']} · {CATEGORY_LABELS.get(master_by_id[value]['category'], master_by_id[value]['category'])}",
+        format_func=lambda value: format_ingredient_option(master_by_id[value]),
         key=f"ingredient_select_{generation}",
     )
     master = master_by_id[selected_id]
@@ -693,6 +715,7 @@ elif st.session_state.nav == "➕ 식재료 추가":
             }
             try:
                 api_request("POST", "/ingredients", json=payload)
+                invalidate_recommendation()
                 st.session_state.add_prefill = None
                 st.success("식재료를 저장했습니다.")
                 nav_to("🧊 냉장고 현황")
@@ -733,6 +756,7 @@ elif st.session_state.nav == "🧂 내 양념장":
         if st.form_submit_button("내 양념장 저장", type="primary", use_container_width=True):
             try:
                 result = api_request("PUT", "/seasonings", json={"owned_ids": selected_ids})
+                invalidate_recommendation()
                 st.success(result["message"])
                 st.rerun()
             except ApiError as exc:
@@ -769,60 +793,94 @@ elif st.session_state.nav == "🍳 메뉴 추천":
         st.caption(f"최근 식사 기록을 직전 식사 기본값으로 불러왔습니다: {latest_meal['recipe_name']} · {latest_meal['cuisine']} · {latest_meal['meal_type']}")
 
     with st.form("recommend_form"):
-        st.markdown("#### 1. 오늘 먹고 싶은 방향")
-        a1, a2, a3 = st.columns(3)
-        preferred_cuisine = a1.selectbox("음식 계열", ["상관없음", "한식", "중식", "일식", "양식"])
-        preference_strength = a2.selectbox(
-            "음식 계열 적용 강도",
-            ["priority", "soft", "strict"],
-            format_func=lambda x: {"soft": "선호함", "priority": "가능하면 해당 계열 먼저", "strict": "해당 계열만 추천"}[x],
-        )
-        preferred_meal_type = a3.selectbox("식사 형태", ["상관없음", "밥·덮밥", "국·찌개", "면", "볶음·구이", "반찬", "간단식", "샐러드·가벼운 식사"])
-
-        st.markdown("#### 2. 직전·최근 식사 반복 조절")
-        l1, l2, l3 = st.columns(3)
-        previous_meal_cuisine = l1.selectbox(
-            "직전 식사 음식 계열",
-            cuisine_options,
-            index=cuisine_options.index(default_previous_cuisine),
-        )
-        previous_meal_type = l2.selectbox(
-            "직전 식사 형태",
-            meal_type_options,
-            index=meal_type_options.index(default_previous_type),
-        )
-        previous_meal_avoidance = l3.selectbox(
-            "직전 식사 유사 메뉴 처리",
-            ["soft", "none", "exclude_cuisine", "exclude_type", "exclude_either", "exclude_both"],
-            format_func=lambda x: {
-                "none": "상관없음",
-                "soft": "가능하면 피하기",
-                "exclude_cuisine": "같은 음식 계열 제외",
-                "exclude_type": "같은 식사 형태 제외",
-                "exclude_either": "계열 또는 형태가 같으면 제외",
-                "exclude_both": "계열과 형태가 모두 같을 때만 제외",
-            }[x],
+        st.markdown("#### 기본 추천 조건")
+        b1, b2 = st.columns(2)
+        preferred_cuisine = b1.selectbox("음식 계열", ["상관없음", "한식", "중식", "일식", "양식"])
+        preferred_meal_type = b2.selectbox(
+            "식사 형태",
+            ["상관없음", "밥·덮밥", "국·찌개", "면", "볶음·구이", "반찬", "간단식", "샐러드·가벼운 식사"],
         )
 
-        st.markdown("#### 3. 조리 조건")
-        p1, p2, p3 = st.columns(3)
-        max_minutes = p1.select_slider("조리 가능 시간", options=[5, 15, 20, 30, 45, 60], value=30, format_func=lambda x: f"{x}분")
-        mode = p2.selectbox("추천 성향", ["balanced", "fridge", "taste"], format_func=lambda x: {"balanced": "균형", "fridge": "냉장고 소진 우선", "taste": "취향 우선"}[x])
-        repeat = p3.selectbox("최근 식사 기록 반복 회피", ["medium", "low", "high"], format_func=lambda x: {"medium": "보통", "low": "낮음", "high": "높음"}[x])
-        tools = st.multiselect(
+        b3, b4 = st.columns(2)
+        max_minutes = b3.select_slider(
+            "조리 가능 시간",
+            options=[5, 15, 20, 30, 45, 60],
+            value=30,
+            format_func=lambda x: f"{x}분",
+        )
+        tools = b4.multiselect(
             "사용 가능한 조리기구 (없어도 됨)",
             ["프라이팬", "냄비", "전자레인지", "에어프라이어", "오븐"],
             default=["프라이팬", "냄비"],
-            help="아무것도 선택하지 않으면 조리기구가 필요 없는 5분 샐러드·간단식만 추천됩니다.",
-        )
-        allow_substitutions = st.checkbox(
-            "비슷한 재료·양념 대체 허용",
-            value=True,
-            help="동등 대체는 바로 조리에 반영하고, 간이 대체는 주의 문구와 함께 '하나 더 필요' 후보로 처리합니다.",
+            help="아무것도 선택하지 않으면 조리기구가 필요 없는 메뉴만 추천됩니다.",
         )
 
-        with st.expander("이번 추천의 양념 보유 상태 수정"):
-            temporary_owned = st.multiselect("사용 가능한 양념", seasoning_ids, default=owned_default, format_func=lambda x: seasoning_name[x])
+        with st.expander("상세 추천 설정"):
+            st.markdown("##### 취향 적용")
+            preference_strength = st.selectbox(
+                "음식 계열 적용 강도",
+                ["priority", "soft", "strict"],
+                format_func=lambda x: {
+                    "soft": "선호함",
+                    "priority": "가능하면 해당 계열 먼저",
+                    "strict": "해당 계열만 추천",
+                }[x],
+            )
+
+            st.markdown("##### 직전·최근 식사 반복 조절")
+            l1, l2, l3 = st.columns(3)
+            previous_meal_cuisine = l1.selectbox(
+                "직전 식사 음식 계열",
+                cuisine_options,
+                index=cuisine_options.index(default_previous_cuisine),
+            )
+            previous_meal_type = l2.selectbox(
+                "직전 식사 형태",
+                meal_type_options,
+                index=meal_type_options.index(default_previous_type),
+            )
+            previous_meal_avoidance = l3.selectbox(
+                "직전 식사 유사 메뉴 처리",
+                ["soft", "none", "exclude_cuisine", "exclude_type", "exclude_either", "exclude_both"],
+                format_func=lambda x: {
+                    "none": "상관없음",
+                    "soft": "가능하면 피하기",
+                    "exclude_cuisine": "같은 음식 계열 제외",
+                    "exclude_type": "같은 식사 형태 제외",
+                    "exclude_either": "계열 또는 형태가 같으면 제외",
+                    "exclude_both": "계열과 형태가 모두 같을 때만 제외",
+                }[x],
+            )
+
+            st.markdown("##### 추천 정책")
+            p1, p2 = st.columns(2)
+            mode = p1.selectbox(
+                "추천 성향",
+                ["balanced", "fridge", "taste"],
+                format_func=lambda x: {
+                    "balanced": "균형",
+                    "fridge": "냉장고 소진 우선",
+                    "taste": "취향 우선",
+                }[x],
+            )
+            repeat = p2.selectbox(
+                "최근 식사 기록 반복 회피",
+                ["medium", "low", "high"],
+                format_func=lambda x: {"medium": "보통", "low": "낮음", "high": "높음"}[x],
+            )
+            allow_substitutions = st.checkbox(
+                "비슷한 재료·양념 대체 허용",
+                value=True,
+                help="정확 일치를 먼저 사용하고, 남은 조건에만 동등 대체를 적용합니다. 간이 대체는 완전 충족으로 계산하지 않습니다.",
+            )
+
+            st.markdown("##### 이번 추천의 양념 보유 상태")
+            temporary_owned = st.multiselect(
+                "사용 가능한 양념",
+                seasoning_ids,
+                default=owned_default,
+                format_func=lambda x: seasoning_name[x],
+            )
             save_pantry = st.checkbox("현재 선택을 내 양념장에도 저장")
 
         submitted = st.form_submit_button("메뉴 추천 받기", type="primary", use_container_width=True)
@@ -830,6 +888,7 @@ elif st.session_state.nav == "🍳 메뉴 추천":
             try:
                 if save_pantry:
                     api_request("PUT", "/seasonings", json={"owned_ids": temporary_owned})
+                    invalidate_recommendation()
                 result = api_request(
                     "POST",
                     "/recommend",
@@ -885,6 +944,10 @@ elif st.session_state.nav == "🍳 메뉴 추천":
             weight_text = " · ".join(f"{weight_labels[k]} {v}점" for k, v in policy["weights"].items())
             st.caption(f"{policy['mode_label']} 모드 · {weight_text}")
             st.caption(policy["note"])
+            st.caption(
+                "선택 조건에 맞는 결과 그룹을 먼저 표시합니다. 추천 점수는 각 그룹 안에서 메뉴 순서를 정하는 상대 점수이므로, "
+                "냉장고 재료 활용도가 높은 다른 계열 메뉴의 점수가 더 높을 수 있습니다."
+            )
             render_diagnostics(result)
 
             cuisine_label = summary.get("preferred_cuisine", "상관없음")
@@ -939,9 +1002,23 @@ elif st.session_state.nav == "🍳 메뉴 추천":
 
     selected_recipe = st.session_state.selected_recipe
     if selected_recipe:
+        st.markdown('<div id="meal-completion"></div>', unsafe_allow_html=True)
+        if st.session_state.get("scroll_to_completion"):
+            components.html(
+                """
+                <script>
+                const target = window.parent.document.getElementById('meal-completion');
+                if (target) {
+                  setTimeout(() => target.scrollIntoView({behavior: 'smooth', block: 'start'}), 150);
+                }
+                </script>
+                """,
+                height=0,
+            )
+            st.session_state.scroll_to_completion = False
         st.divider()
         st.markdown(f"### 조리 완료 처리 · {selected_recipe['name']}")
-        st.caption("각 재료를 전부 사용, 일부 사용, 사용하지 않음 중에서 선택하세요. 최소 한 재료를 실제로 사용해야 기록됩니다.")
+        st.caption("사용한 냉장고 재료와 실제 사용량을 입력하면 식사 기록 저장과 재고 차감이 함께 처리됩니다.")
         with st.form("complete_meal_form"):
             slot = st.selectbox("끼니", ["아침", "점심", "저녁", "야식"], index=["아침", "점심", "저녁", "야식"].index(meal_slot_now()))
             dt1, dt2 = st.columns(2)
@@ -960,22 +1037,52 @@ elif st.session_state.nav == "🍳 메뉴 추천":
                     key=mode_key,
                 )
                 partial_default = max(float(lot["quantity"]) / 2.0, 0.0)
-                partial_remaining = st.number_input(
-                    "일부 사용 시 조리 후 남은 수량",
+                partial_used = st.number_input(
+                    f"일부 사용 시 사용한 양 ({lot['unit']})",
                     min_value=0.0,
                     max_value=float(lot["quantity"]),
                     value=partial_default,
                     step=max(min(float(lot["quantity"]) / 10.0, 1.0), 0.1),
-                    key=f"partial_remain_{selected_recipe['recipe_id']}_{lot['inventory_id']}",
+                    key=f"partial_used_{selected_recipe['recipe_id']}_{lot['inventory_id']}",
+                    help="'일부 사용'을 선택한 경우에만 이 값이 재고 차감에 반영됩니다.",
                 )
-                remaining = float(lot["quantity"]) if use_mode == "사용하지 않음" else 0.0 if use_mode == "전부 사용" else partial_remaining
-                usage_payload.append({"inventory_id": lot["inventory_id"], "remaining_quantity": remaining})
+                if use_mode == "사용하지 않음":
+                    remaining = float(lot["quantity"])
+                elif use_mode == "전부 사용":
+                    remaining = 0.0
+                else:
+                    remaining = max(float(lot["quantity"]) - float(partial_used), 0.0)
+                usage_payload.append(
+                    {
+                        "inventory_id": lot["inventory_id"],
+                        "remaining_quantity": remaining,
+                        "use_mode": use_mode,
+                        "used_quantity": float(lot["quantity"]) - remaining,
+                        "original_quantity": float(lot["quantity"]),
+                        "name": lot["name"],
+                    }
+                )
             note = st.text_input("식사 메모", placeholder="선택 입력")
             if st.form_submit_button("식사 기록 및 재고 반영", type="primary"):
-                if not any(row["remaining_quantity"] < float(lot["quantity"]) for row, lot in zip(usage_payload, selected_recipe["matched_inventory"])):
+                partial_errors = [
+                    row["name"]
+                    for row in usage_payload
+                    if row["use_mode"] == "일부 사용"
+                    and (row["used_quantity"] <= 0 or row["used_quantity"] >= row["original_quantity"])
+                ]
+                if partial_errors:
+                    st.error("일부 사용은 0보다 크고 현재 수량보다 작은 사용량을 입력해야 합니다: " + ", ".join(partial_errors))
+                elif not any(row["used_quantity"] > 0 for row in usage_payload):
                     st.error("최소 한 개의 재료를 전부 또는 일부 사용으로 선택해주세요.")
                 else:
                     try:
+                        api_usage = [
+                            {
+                                "inventory_id": row["inventory_id"],
+                                "remaining_quantity": row["remaining_quantity"],
+                            }
+                            for row in usage_payload
+                        ]
                         response = api_request(
                             "POST",
                             "/meals/complete",
@@ -983,20 +1090,21 @@ elif st.session_state.nav == "🍳 메뉴 추천":
                                 "recipe_id": selected_recipe["recipe_id"],
                                 "eaten_at": eaten_at.replace(tzinfo=KST).isoformat(),
                                 "meal_slot": slot,
-                                "usage": usage_payload,
+                                "usage": api_usage,
                                 "note": note,
                             },
                         )
-                        st.success(response["message"])
-                        st.session_state.recommendation_result = None
-                        st.session_state.selected_recipe = None
-                        nav_to("🧊 냉장고 현황")
+                        st.session_state.flash_message = response["message"]
+                        invalidate_recommendation()
+                        nav_to("🕘 식사 기록")
                     except ApiError as exc:
                         show_api_error(exc)
 
 
 elif st.session_state.nav == "🕘 식사 기록":
     st.subheader("최근 식사 기록")
+    if st.session_state.get("flash_message"):
+        st.success(st.session_state.pop("flash_message"))
     try:
         history = api_request("GET", "/meals/history?limit=100")
     except ApiError as exc:
