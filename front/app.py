@@ -5,7 +5,6 @@ from datetime import date, datetime
 from typing import Any
 from zoneinfo import ZoneInfo
 
-import pandas as pd
 import requests
 import streamlit as st
 import streamlit.components.v1 as components
@@ -121,7 +120,6 @@ def nav_to(label: str):
 
 
 def invalidate_recommendation() -> None:
-    """Discard output calculated from an older pantry or inventory state."""
     st.session_state.recommendation_result = None
     st.session_state.selected_recipe = None
     st.session_state.scroll_to_completion = False
@@ -169,7 +167,6 @@ def missing_label(item: dict[str, Any]) -> str:
 
 
 def format_ingredient_option(item: dict[str, Any]) -> str:
-    """Avoid redundant labels such as '두부 · 두부'."""
     name = str(item["name"]).strip()
     category = str(CATEGORY_LABELS.get(item["category"], item["category"])).strip()
     return name if name == category else f"{name} · {category}"
@@ -215,7 +212,7 @@ def render_recipe_card(recipe: dict[str, Any], rank: int, section_key: str, allo
                 st.write("전체 추천 근거")
                 for reason in recipe.get("reasons", [])[3:]:
                     st.write(f"- {reason}")
-            st.caption("추천 적합도는 식품 안전 확률이 아니라 후보 간 상대 순위를 위한 서비스 정책 점수입니다.")
+            st.caption("추천 점수는 메뉴 간 우선순위를 비교하기 위한 값이며, 식품 안전을 판단하지 않습니다.")
 
         if allow_complete and st.button("이 메뉴로 먹었어요", key=f"eat_{section_key}_{recipe['recipe_id']}", type="primary"):
             st.session_state.selected_recipe = recipe
@@ -320,7 +317,6 @@ COMMON_INGREDIENTS = ["egg", "onion", "pork", "chicken", "tofu", "soft_tofu", "d
 
 for key, default in {
     "nav": "🏠 홈",
-    "inventory_view_mode": "카드",
     "add_prefill": None,
     "form_generation": 0,
     "recommendation_result": None,
@@ -432,7 +428,6 @@ if st.session_state.nav == "🏠 홈":
                 )
                 if st.button("양념장 문 열기", key="home_pantry", use_container_width=True):
                     nav_to("🧂 내 양념장")
-    st.caption("홈 메뉴는 Streamlit 버튼으로 이동하므로 추천 결과와 입력 상태가 브라우저 전체 새로고침으로 초기화되지 않습니다.")
     h1, h2, h3, h4 = st.columns(4)
     h1.metric("전체 재고", hs["total"])
     h2.metric("먼저 사용", hs["use_first"])
@@ -482,51 +477,30 @@ elif st.session_state.nav == "🧊 냉장고 현황":
         st.stop()
 
     items = inventory_data["items"]
-    f1, f2, f3 = st.columns([1.35, 1, 2])
-
-    # 카드/리스트 전환은 버튼 callback으로 처리합니다.
-    # callback은 버튼 클릭 직후 session_state를 먼저 갱신한 뒤 Streamlit의
-    # 기본 rerun을 사용하므로, 수동 st.rerun()으로 인한 이중 재실행을 피합니다.
-    def set_inventory_view(mode: str) -> None:
-        st.session_state.inventory_view_mode = mode
-
-    with f1:
-        st.caption("보기")
-        card_col, list_col = st.columns(2)
-
-        card_col.button(
-            "카드",
-            key="inventory_card_view_button",
-            use_container_width=True,
-            type="primary" if st.session_state.inventory_view_mode == "카드" else "secondary",
-            on_click=set_inventory_view,
-            args=("카드",),
-        )
-
-        list_col.button(
-            "리스트",
-            key="inventory_list_view_button",
-            use_container_width=True,
-            type="primary" if st.session_state.inventory_view_mode == "리스트" else "secondary",
-            on_click=set_inventory_view,
-            args=("리스트",),
-        )
-
-    view_mode = st.session_state.inventory_view_mode
-    sort_mode = f2.selectbox(
+    f1, f2 = st.columns([1, 2])
+    sort_mode = f1.selectbox(
         "정렬",
         ["소비 우선도", "표시기한", "구매일", "이름"],
         key="inventory_sort_mode",
     )
-    search = f3.text_input(
+    search = f2.text_input(
         "냉장고 검색",
         placeholder="식재료명 또는 상세명",
         key="inventory_search",
     )
 
-    filtered = [x for x in items if not search or search.lower() in f"{x['ingredient_name']} {x['detail_name']}".lower()]
+    filtered = [
+        x for x in items
+        if not search
+        or search.lower() in f"{x['ingredient_name']} {x['detail_name']}".lower()
+    ]
     if sort_mode == "표시기한":
-        filtered.sort(key=lambda x: (x["expiry_date"] is None, x["expiry_date"] or "9999-12-31"))
+        filtered.sort(
+            key=lambda x: (
+                x["expiry_date"] is None,
+                x["expiry_date"] or "9999-12-31",
+            )
+        )
     elif sort_mode == "구매일":
         filtered.sort(key=lambda x: x["purchase_date"])
     elif sort_mode == "이름":
@@ -534,134 +508,107 @@ elif st.session_state.nav == "🧊 냉장고 현황":
     else:
         filtered.sort(key=lambda x: -x["priority_score"])
 
-    if view_mode == "리스트":
-        frame = pd.DataFrame([
-            {
-                "ID": x["id"], "식재료": x["ingredient_name"], "상세": x["detail_name"],
-                "수량": f"{x['quantity']:g} {x['unit']}", "보관": x["storage"], "구매일": x["purchase_date"],
-                "표시기한": x["expiry_date"] or "미입력", "개봉": "예" if x["opened"] else "아니오",
-                "소비 우선도": x["priority_score"], "상태": x["action"], "정보 신뢰도": x["confidence"],
-            } for x in filtered
-        ])
-        table_height = min(700, max(180, 38 * (len(frame) + 1)))
-        # 사용자 데이터가 문자열/숫자 혼합이어도 안정적으로 렌더링되도록
-        # 복잡한 column_config를 사용하지 않고 단순 dataframe으로 표시합니다.
-        # 소비 우선도는 화면용 문자열로 변환해 Arrow 타입 추론 오류도 방지합니다.
-        frame["구매 묶음"] = frame["ID"].map(lambda value: f"#{int(value)}")
-        frame["소비 우선도"] = frame["소비 우선도"].map(lambda value: f"{float(value):.1f}점")
-        frame = frame[[
-            "구매 묶음", "식재료", "상세", "수량", "보관", "구매일",
-            "표시기한", "개봉", "소비 우선도", "상태", "정보 신뢰도",
-        ]]
-        st.dataframe(
-            frame,
-            use_container_width=True,
-            hide_index=True,
-            height=table_height,
-        )
-    else:
-        for item in filtered:
-            with st.container(border=True):
-                left, middle, right = st.columns([2.4, 1.1, 1.1])
-                with left:
-                    title = item["ingredient_name"] + (f" · {item['detail_name']}" if item["detail_name"] else "")
-                    st.markdown(f"### {title}")
-                    st.write(f"{item['quantity']:g} {item['unit']} · {item['storage']} · 구매 {item['purchase_date']}")
-                    st.caption(
-                        f"구매 묶음 #{item['id']} · 표시기한: {item['expiry_date'] or '미입력'} · "
-                        f"개봉: {'예' if item['opened'] else '아니오'}"
+    for item in filtered:
+        with st.container(border=True):
+            left, middle, right = st.columns([2.4, 1.1, 1.1])
+            with left:
+                title = item["ingredient_name"] + (f" · {item['detail_name']}" if item["detail_name"] else "")
+                st.markdown(f"### {title}")
+                st.write(f"{item['quantity']:g} {item['unit']} · {item['storage']} · 구매 {item['purchase_date']}")
+                st.caption(
+                    f"구매 묶음 #{item['id']} · 표시기한: {item['expiry_date'] or '미입력'} · "
+                    f"개봉: {'예' if item['opened'] else '아니오'}"
+                )
+            middle.metric("소비 우선도", f"{item['priority_score']:.1f}점")
+            middle.caption(item["action"])
+            right.metric("정보 신뢰도", item["confidence"])
+            right.caption(item["confidence_reason"])
+
+            with st.expander("점수 근거·재고 관리"):
+                cols = st.columns(4)
+                for idx, (name, value) in enumerate(item["priority_breakdown"].items()):
+                    cols[idx].metric(name, f"{value:.1f}")
+                st.caption(f"{item.get('date_score_source', '입력 정보')}를 반영한 소비 순서 정책 점수입니다. 식품 안전 판정이 아닙니다.")
+                if item.get("condition_notes"):
+                    st.warning("확인 항목: " + ", ".join(item["condition_notes"]))
+                keep_expiry = st.checkbox(
+                    "표시기한 사용",
+                    value=bool(item["expiry_date"]),
+                    key=f"keep_expiry_edit_{item['id']}",
+                )
+                with st.form(f"edit_{item['id']}"):
+                    st.markdown("#### 재고 정보 수정")
+                    st.caption("식재료 종류 자체를 잘못 골랐다면 이 재고를 삭제한 뒤 다시 등록해주세요.")
+                    er1, er2, er3 = st.columns(3)
+                    new_detail = er1.text_input("상세명", value=item["detail_name"] or "")
+                    new_qty = er2.number_input("현재 수량", min_value=0.0, value=float(item["quantity"]), step=0.5)
+                    new_unit = er3.text_input("단위", value=item["unit"])
+
+                    er4, er5, er6 = st.columns(3)
+                    storage_options = ["냉장", "냉동", "실온"]
+                    new_storage = er4.selectbox(
+                        "보관 위치", storage_options, index=storage_options.index(item["storage"])
                     )
-                middle.metric("소비 우선도", f"{item['priority_score']:.1f}점")
-                middle.caption(item["action"])
-                right.metric("정보 신뢰도", item["confidence"])
-                right.caption(item["confidence_reason"])
-
-                with st.expander("점수 근거·재고 관리"):
-                    cols = st.columns(4)
-                    for idx, (name, value) in enumerate(item["priority_breakdown"].items()):
-                        cols[idx].metric(name, f"{value:.1f}")
-                    st.caption(f"{item.get('date_score_source', '입력 정보')}를 반영한 소비 순서 정책 점수입니다. 식품 안전 판정이 아닙니다.")
-                    if item.get("condition_notes"):
-                        st.warning("확인 항목: " + ", ".join(item["condition_notes"]))
-                    keep_expiry = st.checkbox(
-                        "표시기한 사용",
-                        value=bool(item["expiry_date"]),
-                        key=f"keep_expiry_edit_{item['id']}",
+                    new_purchase_date = er5.date_input(
+                        "구매일", value=date.fromisoformat(item["purchase_date"]), key=f"purchase_edit_{item['id']}"
                     )
-                    with st.form(f"edit_{item['id']}"):
-                        st.markdown("#### 재고 정보 수정")
-                        st.caption("식재료 종류 자체를 잘못 골랐다면 이 재고를 삭제한 뒤 다시 등록해주세요.")
-                        er1, er2, er3 = st.columns(3)
-                        new_detail = er1.text_input("상세명", value=item["detail_name"] or "")
-                        new_qty = er2.number_input("현재 수량", min_value=0.0, value=float(item["quantity"]), step=0.5)
-                        new_unit = er3.text_input("단위", value=item["unit"])
+                    new_expiry_date = None
+                    if keep_expiry:
+                        expiry_default = date.fromisoformat(item["expiry_date"]) if item["expiry_date"] else new_purchase_date
+                        new_expiry_date = er6.date_input(
+                            "표시기한", value=expiry_default, key=f"expiry_edit_{item['id']}"
+                        )
 
-                        er4, er5, er6 = st.columns(3)
-                        storage_options = ["냉장", "냉동", "실온"]
-                        new_storage = er4.selectbox(
-                            "보관 위치", storage_options, index=storage_options.index(item["storage"])
-                        )
-                        new_purchase_date = er5.date_input(
-                            "구매일", value=date.fromisoformat(item["purchase_date"]), key=f"purchase_edit_{item['id']}"
-                        )
-                        new_expiry_date = None
-                        if keep_expiry:
-                            expiry_default = date.fromisoformat(item["expiry_date"]) if item["expiry_date"] else new_purchase_date
-                            new_expiry_date = er6.date_input(
-                                "표시기한", value=expiry_default, key=f"expiry_edit_{item['id']}"
-                            )
-
-                        er7, er8, er9 = st.columns(3)
-                        new_opened = er7.checkbox("개봉함", value=bool(item["opened"]))
-                        opened_default = date.fromisoformat(item["opened_date"]) if item.get("opened_date") else new_purchase_date
-                        new_opened_date = er8.date_input(
-                            "개봉일", value=opened_default, key=f"opened_edit_{item['id']}"
-                        )
-                        new_status = er9.selectbox(
-                            "추천 상태", ["normal", "needs_review", "excluded"],
-                            index=["normal", "needs_review", "excluded"].index(item["condition_status"]),
-                            format_func=lambda x: {"normal": "정상", "needs_review": "직접 확인 필요", "excluded": "추천에서 제외"}[x],
-                        )
-                        priority_override = st.checkbox("사용자 지정 우선 사용", value=bool(item["priority_override"]))
-                        note = st.text_input("메모", value=item["note"] or "")
-                        if st.form_submit_button("수정 저장", type="primary", use_container_width=True):
-                            try:
-                                api_request(
-                                    "PUT",
-                                    f"/ingredients/{item['id']}",
-                                    json={
-                                        "detail_name": new_detail,
-                                        "quantity": new_qty,
-                                        "unit": new_unit,
-                                        "storage": new_storage,
-                                        "purchase_date": new_purchase_date.isoformat(),
-                                        "expiry_date": new_expiry_date.isoformat() if new_expiry_date else None,
-                                        "opened": new_opened,
-                                        "opened_date": new_opened_date.isoformat() if new_opened else None,
-                                        "condition_status": new_status,
-                                        "priority_override": priority_override,
-                                        "note": note,
-                                    },
-                                )
-                                invalidate_recommendation()
-                                st.success("보관 위치·구매일을 포함해 수정했습니다.")
-                                st.rerun()
-                            except ApiError as exc:
-                                show_api_error(exc)
-                    rc1, rc2 = st.columns(2)
-                    if rc1.button("같은 제품 다시 샀어요", key=f"repurchase_{item['id']}", use_container_width=True):
-                        st.session_state.add_prefill = item
-                        st.session_state.form_generation += 1
-                        nav_to("➕ 식재료 추가")
-                    if rc2.button("이 재고 삭제", key=f"delete_{item['id']}", use_container_width=True, type="secondary"):
+                    er7, er8, er9 = st.columns(3)
+                    new_opened = er7.checkbox("개봉함", value=bool(item["opened"]))
+                    opened_default = date.fromisoformat(item["opened_date"]) if item.get("opened_date") else new_purchase_date
+                    new_opened_date = er8.date_input(
+                        "개봉일", value=opened_default, key=f"opened_edit_{item['id']}"
+                    )
+                    new_status = er9.selectbox(
+                        "추천 상태", ["normal", "needs_review", "excluded"],
+                        index=["normal", "needs_review", "excluded"].index(item["condition_status"]),
+                        format_func=lambda x: {"normal": "정상", "needs_review": "직접 확인 필요", "excluded": "추천에서 제외"}[x],
+                    )
+                    priority_override = st.checkbox("사용자 지정 우선 사용", value=bool(item["priority_override"]))
+                    note = st.text_input("메모", value=item["note"] or "")
+                    if st.form_submit_button("수정 저장", type="primary", use_container_width=True):
                         try:
-                            api_request("DELETE", f"/ingredients/{item['id']}")
+                            api_request(
+                                "PUT",
+                                f"/ingredients/{item['id']}",
+                                json={
+                                    "detail_name": new_detail,
+                                    "quantity": new_qty,
+                                    "unit": new_unit,
+                                    "storage": new_storage,
+                                    "purchase_date": new_purchase_date.isoformat(),
+                                    "expiry_date": new_expiry_date.isoformat() if new_expiry_date else None,
+                                    "opened": new_opened,
+                                    "opened_date": new_opened_date.isoformat() if new_opened else None,
+                                    "condition_status": new_status,
+                                    "priority_override": priority_override,
+                                    "note": note,
+                                },
+                            )
                             invalidate_recommendation()
-                            st.success("삭제했습니다.")
+                            st.success("보관 위치·구매일을 포함해 수정했습니다.")
                             st.rerun()
                         except ApiError as exc:
                             show_api_error(exc)
-
+                rc1, rc2 = st.columns(2)
+                if rc1.button("같은 제품 다시 샀어요", key=f"repurchase_{item['id']}", use_container_width=True):
+                    st.session_state.add_prefill = item
+                    st.session_state.form_generation += 1
+                    nav_to("➕ 식재료 추가")
+                if rc2.button("이 재고 삭제", key=f"delete_{item['id']}", use_container_width=True, type="secondary"):
+                    try:
+                        api_request("DELETE", f"/ingredients/{item['id']}")
+                        invalidate_recommendation()
+                        st.success("삭제했습니다.")
+                        st.rerun()
+                    except ApiError as exc:
+                        show_api_error(exc)
 
 elif st.session_state.nav == "➕ 식재료 추가":
     st.subheader("식재료 등록")
@@ -731,7 +678,6 @@ elif st.session_state.nav == "➕ 식재료 추가":
         "포장지 표시기한 입력",
         value=bool(prefill.get("expiry_date")),
         key=expiry_toggle_key,
-        help="체크하면 바로 아래 입력 폼에 날짜 선택란이 나타납니다.",
     )
 
     with st.form(f"add_ingredient_{generation}", clear_on_submit=False):
@@ -751,14 +697,14 @@ elif st.session_state.nav == "➕ 식재료 추가":
         expiry_default = date.fromisoformat(prefill["expiry_date"]) if prefill.get("expiry_date") else datetime.now(KST).date()
         expiry_date = d2.date_input("포장지 표시기한", value=expiry_default) if use_expiry else None
         if not use_expiry:
-            d2.caption("표시기한을 입력하지 않습니다. 구매일과 식재료별 관리 구간으로 우선도를 보완 계산합니다.")
+            d2.caption("표시기한이 없으면 구매일을 기준으로 우선도를 계산합니다.")
 
         with st.expander("상세·개봉·상태 정보 (선택)"):
             detail_name = st.text_input("상세명", value=prefill.get("detail_name", ""), placeholder="예: 찌개용 앞다리살")
             o1, o2 = st.columns(2)
             opened = o1.checkbox("개봉함", value=False)
             opened_date = o2.date_input("개봉일", value=datetime.now(KST).date())
-            st.caption("식재료군별 상태 질문입니다. 하나라도 해당하면 직접 확인 대상으로 저장되고 자동 추천에서 제외됩니다.")
+            st.caption("해당 항목이 있으면 상태 확인 대상으로 분류되어 추천에서 제외됩니다.")
             condition_notes = []
             for idx, question in enumerate(master.get("condition_questions", [])):
                 if st.checkbox(question, key=f"condition_{generation}_{idx}"):
@@ -862,7 +808,7 @@ elif st.session_state.nav == "🍳 메뉴 추천":
     default_previous_type = latest_meal.get("meal_type") if latest_meal and latest_meal.get("meal_type") in meal_type_options else "입력하지 않음"
 
     if latest_meal:
-        st.caption(f"최근 완료 메뉴를 직전 식사 기본값으로 불러왔습니다: {latest_meal['recipe_name']} · {latest_meal['cuisine']} · {latest_meal['meal_type']}")
+        st.caption(f"직전 식사: {latest_meal['recipe_name']} · {latest_meal['cuisine']} · {latest_meal['meal_type']}")
 
     with st.form("recommend_form"):
         st.markdown("#### 기본 추천 조건")
@@ -943,7 +889,7 @@ elif st.session_state.nav == "🍳 메뉴 추천":
             allow_substitutions = st.checkbox(
                 "비슷한 재료·양념 대체 허용",
                 value=True,
-                help="정확 일치를 먼저 사용하고, 남은 조건에만 동등 대체를 적용합니다. 간이 대체는 완전 충족으로 계산하지 않습니다.",
+                help="같은 역할을 하는 재료와 양념을 대체 후보로 사용합니다.",
             )
 
             st.markdown("##### 이번 추천의 양념 보유 상태")
@@ -1017,8 +963,8 @@ elif st.session_state.nav == "🍳 메뉴 추천":
             st.caption(f"{policy['mode_label']} 모드 · {weight_text}")
             st.caption(policy["note"])
             st.caption(
-                "선택 조건에 맞는 결과 그룹을 먼저 표시합니다. 추천 점수는 각 그룹 안에서 메뉴 순서를 정하는 상대 점수이므로, "
-                "냉장고 재료 활용도가 높은 다른 계열 메뉴의 점수가 더 높을 수 있습니다."
+                "선택 조건에 맞는 메뉴를 먼저 보여줍니다. 점수는 각 구역 안의 순위를 나타내므로, "
+                "다른 구역의 메뉴가 더 높은 점수를 받을 수 있습니다."
             )
             render_diagnostics(result)
 
@@ -1030,9 +976,7 @@ elif st.session_state.nav == "🍳 메뉴 추천":
             priority_one_more = result.get("priority_override_one_more_results", [])
             if priority_results or priority_one_more:
                 st.markdown("### 사용자 지정 우선 재료 활용 메뉴")
-                st.caption(
-                    "직접 '우선 사용'으로 지정한 식재료를 포함하면서 현재 시간·조리기구 조건을 통과한 메뉴를 가장 먼저 표시합니다."
-                )
+                st.caption("우선 사용으로 지정한 재료를 활용하는 메뉴를 먼저 보여줍니다.")
                 for rank, recipe in enumerate(priority_results, start=1):
                     render_recipe_card(recipe, rank, "priority_override")
                 if priority_one_more:
@@ -1047,7 +991,7 @@ elif st.session_state.nav == "🍳 메뉴 추천":
                 for item in priority_results
             )
             if not exact and priority_exact_exists:
-                st.caption("완전 일치하는 우선 사용 메뉴는 위의 '사용자 지정 우선 재료 활용 메뉴'에 먼저 표시했습니다.")
+                st.caption("조건에 맞는 메뉴는 위의 우선 사용 재료 구역에 표시됩니다.")
             elif not exact:
                 st.info("현재 재고와 조리 조건을 모두 만족하는 완전 일치 메뉴가 없습니다.")
             for rank, recipe in enumerate(exact, start=1):
@@ -1062,7 +1006,6 @@ elif st.session_state.nav == "🍳 메뉴 추천":
             same_cuisine_other = result.get("preferred_other_type_results", [])
             if same_cuisine_other:
                 st.markdown("### 같은 음식 계열이지만 다른 식사 형태")
-                st.caption("음식 계열은 맞지만 선택한 식사 형태와 달라 별도 구역에 표시합니다.")
                 for rank, recipe in enumerate(same_cuisine_other, start=1):
                     render_recipe_card(recipe, rank, "preferred_other_type")
 
@@ -1075,7 +1018,6 @@ elif st.session_state.nav == "🍳 메뉴 추천":
             alt_exact = result.get("alternative_exact_results", [])
             if alt_exact:
                 st.markdown("### 다른 음식 계열이지만 원하는 식사 형태")
-                st.caption("음식 계열은 다르지만 선택한 식사 형태와 냉장고 활용도가 좋은 메뉴입니다.")
                 for rank, recipe in enumerate(alt_exact, start=1):
                     render_recipe_card(recipe, rank, "alternative_exact")
 
@@ -1219,7 +1161,6 @@ elif st.session_state.nav == "🍳 메뉴 추천":
                 f"- {row['name']}: {row['used_quantity']:g} {row['unit']} 사용 · "
                 f"{row['remaining_quantity']:g} {row['unit']} 남음"
             )
-        st.caption("같은 메뉴의 연속 추천을 줄이기 위한 최소 완료 이력은 내부적으로만 저장됩니다.")
         cr1, cr2 = st.columns(2)
         if cr1.button("냉장고 현황 보기", use_container_width=True, type="primary"):
             st.session_state.completion_result = None
