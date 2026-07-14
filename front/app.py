@@ -484,29 +484,33 @@ elif st.session_state.nav == "🧊 냉장고 현황":
     items = inventory_data["items"]
     f1, f2, f3 = st.columns([1.35, 1, 2])
 
-    # 카드/리스트 전환은 명시적인 session_state로 관리합니다.
-    # st.radio의 위젯 상태가 화면 재실행 과정에서 되돌아가는 문제를 방지합니다.
+    # 카드/리스트 전환은 버튼 callback으로 처리합니다.
+    # callback은 버튼 클릭 직후 session_state를 먼저 갱신한 뒤 Streamlit의
+    # 기본 rerun을 사용하므로, 수동 st.rerun()으로 인한 이중 재실행을 피합니다.
+    def set_inventory_view(mode: str) -> None:
+        st.session_state.inventory_view_mode = mode
+
     with f1:
         st.caption("보기")
         card_col, list_col = st.columns(2)
 
-        if card_col.button(
+        card_col.button(
             "카드",
             key="inventory_card_view_button",
             use_container_width=True,
             type="primary" if st.session_state.inventory_view_mode == "카드" else "secondary",
-        ):
-            st.session_state.inventory_view_mode = "카드"
-            st.rerun()
+            on_click=set_inventory_view,
+            args=("카드",),
+        )
 
-        if list_col.button(
+        list_col.button(
             "리스트",
             key="inventory_list_view_button",
             use_container_width=True,
             type="primary" if st.session_state.inventory_view_mode == "리스트" else "secondary",
-        ):
-            st.session_state.inventory_view_mode = "리스트"
-            st.rerun()
+            on_click=set_inventory_view,
+            args=("리스트",),
+        )
 
     view_mode = st.session_state.inventory_view_mode
     sort_mode = f2.selectbox(
@@ -540,24 +544,20 @@ elif st.session_state.nav == "🧊 냉장고 현황":
             } for x in filtered
         ])
         table_height = min(700, max(180, 38 * (len(frame) + 1)))
+        # 사용자 데이터가 문자열/숫자 혼합이어도 안정적으로 렌더링되도록
+        # 복잡한 column_config를 사용하지 않고 단순 dataframe으로 표시합니다.
+        # 소비 우선도는 화면용 문자열로 변환해 Arrow 타입 추론 오류도 방지합니다.
+        frame["구매 묶음"] = frame["ID"].map(lambda value: f"#{int(value)}")
+        frame["소비 우선도"] = frame["소비 우선도"].map(lambda value: f"{float(value):.1f}점")
+        frame = frame[[
+            "구매 묶음", "식재료", "상세", "수량", "보관", "구매일",
+            "표시기한", "개봉", "소비 우선도", "상태", "정보 신뢰도",
+        ]]
         st.dataframe(
             frame,
             use_container_width=True,
             hide_index=True,
             height=table_height,
-            column_config={
-                "ID": st.column_config.NumberColumn("구매 묶음", format="#%d", width="small"),
-                "식재료": st.column_config.TextColumn("식재료", width="medium"),
-                "상세": st.column_config.TextColumn("상세명", width="medium"),
-                "수량": st.column_config.TextColumn("수량", width="small"),
-                "보관": st.column_config.TextColumn("보관 위치", width="small"),
-                "구매일": st.column_config.TextColumn("구매일", width="small"),
-                "표시기한": st.column_config.TextColumn("표시기한", width="small"),
-                "개봉": st.column_config.TextColumn("개봉", width="small"),
-                "소비 우선도": st.column_config.NumberColumn("소비 우선도", format="%.1f점", width="small"),
-                "상태": st.column_config.TextColumn("권장 행동", width="medium"),
-                "정보 신뢰도": st.column_config.TextColumn("정보 신뢰도", width="small"),
-            },
         )
     else:
         for item in filtered:
