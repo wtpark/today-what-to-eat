@@ -450,7 +450,7 @@ def complete_meal(payload: MealCompleteRequest) -> dict[str, Any]:
             """,
             (payload.recipe_id,),
         )
-    return {"message": "식사 기록과 냉장고 재고가 함께 갱신되었습니다.", "usage": usage_log}
+    return {"message": "냉장고 재고가 반영되었습니다.", "usage": usage_log}
 
 
 @app.get("/meals/history")

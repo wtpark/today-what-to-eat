@@ -68,4 +68,4 @@ sudo docker exec -it today-menu-back python /app/scripts/reset_user_data.py
 - WAL 모드
 - `busy_timeout=5000`
 - 짧은 트랜잭션
-- 조리 완료는 하나의 트랜잭션으로 재고와 식사 기록을 함께 처리
+- 조리 완료는 하나의 트랜잭션으로 재고를 차감하고, 반복 추천 방지용 최소 완료 이력을 내부 저장

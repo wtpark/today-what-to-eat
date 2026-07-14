@@ -74,6 +74,11 @@ st.markdown(
         display: inline-block; border-radius: 999px; padding: .25rem .65rem;
         background: #e7f2e9; color: #285b36; font-weight: 700; margin-right: .3rem;
       }
+      .completion-box {
+        border: 2px solid #78907d; border-radius: 20px; padding: 1rem 1.2rem;
+        background: #f4faf5; color: #1d2922; margin: 1rem 0;
+        box-shadow: 0 8px 22px rgba(50, 80, 60, .08);
+      }
       @media (max-width: 720px) {
         .fridge-grid { grid-template-columns: 1fr; }
         .fridge-door::after { right: 13px !important; left: auto !important; }
@@ -115,10 +120,12 @@ def nav_to(label: str):
 
 
 def invalidate_recommendation() -> None:
-    """Discard recommendations calculated from an older pantry or inventory state."""
+    """Discard output calculated from an older pantry or inventory state."""
     st.session_state.recommendation_result = None
     st.session_state.selected_recipe = None
     st.session_state.scroll_to_completion = False
+    st.session_state.completion_result = None
+    st.session_state.scroll_to_completion_result = False
 
 
 def get_health() -> dict[str, Any] | None:
@@ -317,7 +324,8 @@ for key, default in {
     "recommendation_result": None,
     "selected_recipe": None,
     "scroll_to_completion": False,
-    "flash_message": None,
+    "completion_result": None,
+    "scroll_to_completion_result": False,
 }.items():
     st.session_state.setdefault(key, default)
 
@@ -335,7 +343,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-nav_options = ["🏠 홈", "🧊 냉장고 현황", "➕ 식재료 추가", "🍳 메뉴 추천", "🧂 내 양념장", "🕘 식사 기록"]
+nav_options = ["🏠 홈", "🧊 냉장고 현황", "➕ 식재료 추가", "🍳 메뉴 추천", "🧂 내 양념장"]
 st.radio("메뉴", nav_options, horizontal=True, key="nav", label_visibility="collapsed")
 
 with st.sidebar:
@@ -364,11 +372,19 @@ if st.session_state.nav == "🏠 홈":
 
     hs = home_inventory["summary"]
     owned_count = sum(1 for item in home_seasonings if item["owned"])
-    urgent_names = [
+    priority_names = [
         item["ingredient_name"] for item in home_inventory["items"]
-        if item["action"] in ("먼저 사용", "사용자 지정 우선 사용")
-    ][:3]
-    urgent_text = ", ".join(urgent_names) if urgent_names else "급한 재료 없음"
+        if item.get("priority_override") and item.get("recommendation_eligible")
+    ]
+    automatic_names = [
+        item["ingredient_name"] for item in home_inventory["items"]
+        if not item.get("priority_override") and item["action"] == "먼저 사용"
+    ]
+    urgent_names: list[str] = []
+    for name in priority_names + automatic_names:
+        if name not in urgent_names:
+            urgent_names.append(name)
+    urgent_text = ", ".join(urgent_names[:3]) if urgent_names else "급한 재료 없음"
 
     st.markdown(
         f'<div class="fridge-display">오늘 먼저 확인: {urgent_text}</div>',
@@ -419,8 +435,6 @@ if st.session_state.nav == "🏠 홈":
     h2.metric("먼저 사용", hs["use_first"])
     h3.metric("추천 제외", hs.get("recommendation_excluded", hs.get("needs_review", 0)))
     h4.metric("레시피", home_catalog["recipes"])
-    if st.button("최근 식사 기록 보기", use_container_width=True):
-        nav_to("🕘 식사 기록")
 
 
 elif st.session_state.nav == "🧊 냉장고 현황":
@@ -498,7 +512,10 @@ elif st.session_state.nav == "🧊 냉장고 현황":
                     title = item["ingredient_name"] + (f" · {item['detail_name']}" if item["detail_name"] else "")
                     st.markdown(f"### {title}")
                     st.write(f"{item['quantity']:g} {item['unit']} · {item['storage']} · 구매 {item['purchase_date']}")
-                    st.caption(f"표시기한: {item['expiry_date'] or '미입력'} · 개봉: {'예' if item['opened'] else '아니오'}")
+                    st.caption(
+                        f"구매 묶음 #{item['id']} · 표시기한: {item['expiry_date'] or '미입력'} · "
+                        f"개봉: {'예' if item['opened'] else '아니오'}"
+                    )
                 middle.metric("소비 우선도", f"{item['priority_score']:.1f}점")
                 middle.caption(item["action"])
                 right.metric("정보 신뢰도", item["confidence"])
@@ -790,7 +807,7 @@ elif st.session_state.nav == "🍳 메뉴 추천":
     default_previous_type = latest_meal.get("meal_type") if latest_meal and latest_meal.get("meal_type") in meal_type_options else "입력하지 않음"
 
     if latest_meal:
-        st.caption(f"최근 식사 기록을 직전 식사 기본값으로 불러왔습니다: {latest_meal['recipe_name']} · {latest_meal['cuisine']} · {latest_meal['meal_type']}")
+        st.caption(f"최근 완료 메뉴를 직전 식사 기본값으로 불러왔습니다: {latest_meal['recipe_name']} · {latest_meal['cuisine']} · {latest_meal['meal_type']}")
 
     with st.form("recommend_form"):
         st.markdown("#### 기본 추천 조건")
@@ -864,7 +881,7 @@ elif st.session_state.nav == "🍳 메뉴 추천":
                 }[x],
             )
             repeat = p2.selectbox(
-                "최근 식사 기록 반복 회피",
+                "최근 완료 메뉴 반복 회피",
                 ["medium", "low", "high"],
                 format_func=lambda x: {"medium": "보통", "low": "낮음", "high": "높음"}[x],
             )
@@ -954,9 +971,29 @@ elif st.session_state.nav == "🍳 메뉴 추천":
             type_label = summary.get("preferred_meal_type", "상관없음")
             exact_label = "선택 조건" if cuisine_label == "상관없음" and type_label == "상관없음" else "·".join(x for x in [cuisine_label, type_label] if x != "상관없음")
 
+            priority_results = result.get("priority_override_results", [])
+            priority_one_more = result.get("priority_override_one_more_results", [])
+            if priority_results or priority_one_more:
+                st.markdown("### 사용자 지정 우선 재료 활용 메뉴")
+                st.caption(
+                    "직접 '우선 사용'으로 지정한 식재료를 포함하면서 현재 시간·조리기구 조건을 통과한 메뉴를 가장 먼저 표시합니다."
+                )
+                for rank, recipe in enumerate(priority_results, start=1):
+                    render_recipe_card(recipe, rank, "priority_override")
+                if priority_one_more:
+                    st.markdown("#### 우선 재료 활용 · 하나만 더 있으면 가능해요")
+                    for rank, recipe in enumerate(priority_one_more, start=1):
+                        render_one_more(recipe, rank, "priority_override_one")
+
             exact = result.get("preferred_exact_results", [])
             st.markdown(f"### {exact_label}로 바로 만들 수 있어요")
-            if not exact:
+            priority_exact_exists = any(
+                item.get("is_preferred_cuisine") and item.get("is_preferred_meal_type")
+                for item in priority_results
+            )
+            if not exact and priority_exact_exists:
+                st.caption("완전 일치하는 우선 사용 메뉴는 위의 '사용자 지정 우선 재료 활용 메뉴'에 먼저 표시했습니다.")
+            elif not exact:
                 st.info("현재 재고와 조리 조건을 모두 만족하는 완전 일치 메뉴가 없습니다.")
             for rank, recipe in enumerate(exact, start=1):
                 render_recipe_card(recipe, rank, "preferred_exact")
@@ -1017,14 +1054,9 @@ elif st.session_state.nav == "🍳 메뉴 추천":
             )
             st.session_state.scroll_to_completion = False
         st.divider()
-        st.markdown(f"### 조리 완료 처리 · {selected_recipe['name']}")
-        st.caption("사용한 냉장고 재료와 실제 사용량을 입력하면 식사 기록 저장과 재고 차감이 함께 처리됩니다.")
+        st.markdown(f"### 재고 반영 · {selected_recipe['name']}")
+        st.caption("실제로 사용한 냉장고 재료와 사용량을 선택하면 해당 구매 묶음의 재고만 차감합니다.")
         with st.form("complete_meal_form"):
-            slot = st.selectbox("끼니", ["아침", "점심", "저녁", "야식"], index=["아침", "점심", "저녁", "야식"].index(meal_slot_now()))
-            dt1, dt2 = st.columns(2)
-            eaten_date = dt1.date_input("먹은 날짜", value=datetime.now(KST).date())
-            eaten_time = dt2.time_input("먹은 시간", value=datetime.now(KST).time().replace(tzinfo=None, microsecond=0))
-            eaten_at = datetime.combine(eaten_date, eaten_time)
             usage_payload = []
             for lot in selected_recipe["matched_inventory"]:
                 label = f"{lot['name']} · 현재 {lot['quantity']:g} {lot['unit']}"
@@ -1062,8 +1094,7 @@ elif st.session_state.nav == "🍳 메뉴 추천":
                         "name": lot["name"],
                     }
                 )
-            note = st.text_input("식사 메모", placeholder="선택 입력")
-            if st.form_submit_button("식사 기록 및 재고 반영", type="primary"):
+            if st.form_submit_button("재고에 반영하기", type="primary"):
                 partial_errors = [
                     row["name"]
                     for row in usage_payload
@@ -1088,35 +1119,57 @@ elif st.session_state.nav == "🍳 메뉴 추천":
                             "/meals/complete",
                             json={
                                 "recipe_id": selected_recipe["recipe_id"],
-                                "eaten_at": eaten_at.replace(tzinfo=KST).isoformat(),
-                                "meal_slot": slot,
+                                "eaten_at": datetime.now(KST).isoformat(timespec="seconds"),
+                                "meal_slot": meal_slot_now(),
                                 "usage": api_usage,
-                                "note": note,
+                                "note": "",
                             },
                         )
-                        st.session_state.flash_message = response["message"]
+                        completion_result = {
+                            "message": response["message"],
+                            "recipe_name": selected_recipe["name"],
+                            "usage": response.get("usage", []),
+                        }
                         invalidate_recommendation()
-                        nav_to("🕘 식사 기록")
+                        st.session_state.completion_result = completion_result
+                        st.session_state.scroll_to_completion_result = True
+                        st.rerun()
                     except ApiError as exc:
                         show_api_error(exc)
 
 
-elif st.session_state.nav == "🕘 식사 기록":
-    st.subheader("최근 식사 기록")
-    if st.session_state.get("flash_message"):
-        st.success(st.session_state.pop("flash_message"))
-    try:
-        history = api_request("GET", "/meals/history?limit=100")
-    except ApiError as exc:
-        show_api_error(exc)
-        st.stop()
-    if not history:
-        st.info("아직 '이 메뉴로 먹었어요'로 저장한 식사가 없습니다.")
-    else:
-        frame = pd.DataFrame([
-            {
-                "날짜·시간": x["eaten_at"], "끼니": x["meal_slot"], "메뉴": x["recipe_name"],
-                "계열": x["cuisine"], "형태": x["meal_type"], "조리법": x["cooking_method"], "메모": x["note"],
-            } for x in history
-        ])
-        st.dataframe(frame, use_container_width=True, hide_index=True)
+    completion_result = st.session_state.get("completion_result")
+    if completion_result:
+        st.markdown('<div id="stock-completion-result"></div>', unsafe_allow_html=True)
+        if st.session_state.get("scroll_to_completion_result"):
+            components.html(
+                """
+                <script>
+                const target = window.parent.document.getElementById('stock-completion-result');
+                if (target) {
+                  setTimeout(() => target.scrollIntoView({behavior: 'smooth', block: 'start'}), 150);
+                }
+                </script>
+                """,
+                height=0,
+            )
+            st.session_state.scroll_to_completion_result = False
+        st.markdown(
+            f'<div class="completion-box"><h3>✅ 재고 반영 완료</h3>'
+            f'<p><b>{completion_result["recipe_name"]}</b> 조리에 사용한 재료를 냉장고 재고에 반영했습니다.</p></div>',
+            unsafe_allow_html=True,
+        )
+        for row in completion_result.get("usage", []):
+            st.write(
+                f"- {row['name']}: {row['used_quantity']:g} {row['unit']} 사용 · "
+                f"{row['remaining_quantity']:g} {row['unit']} 남음"
+            )
+        st.caption("같은 메뉴의 연속 추천을 줄이기 위한 최소 완료 이력은 내부적으로만 저장됩니다.")
+        cr1, cr2 = st.columns(2)
+        if cr1.button("냉장고 현황 보기", use_container_width=True, type="primary"):
+            st.session_state.completion_result = None
+            nav_to("🧊 냉장고 현황")
+        if cr2.button("메뉴 다시 추천받기", use_container_width=True):
+            st.session_state.completion_result = None
+            st.rerun()
+

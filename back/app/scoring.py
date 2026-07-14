@@ -740,6 +740,8 @@ def _evaluate_recipe(
         "image_path": recipe.get("image_path"),
         "is_preferred_cuisine": is_preferred,
         "is_preferred_meal_type": request["preferred_meal_type"] == "상관없음" or recipe["meal_type"] == request["preferred_meal_type"],
+        "uses_priority_override": bool(override_used),
+        "priority_override_names": override_used,
     }
     return result, None, missing_groups
 
@@ -786,6 +788,8 @@ def recommend(
                 "식재료를 추가하거나 상태 확인이 필요한 재료를 점검해주세요.",
                 "데모 식재료를 불러와 기능을 확인할 수 있습니다.",
             ],
+            "priority_override_results": [],
+            "priority_override_one_more_results": [],
             "preferred_exact_results": [],
             "preferred_other_type_results": [],
             "preferred_exact_one_more_results": [],
@@ -802,6 +806,13 @@ def recommend(
             "one_more_results": [],
             "inventory_priority": enriched,
         }
+
+    override_ingredient_ids = {
+        item["ingredient_id"] for item in usable if item.get("priority_override")
+    }
+    override_ingredient_names = sorted({
+        item["ingredient_name"] for item in usable if item.get("priority_override")
+    })
 
     inventory_by_ingredient: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for item in usable:
@@ -867,6 +878,17 @@ def recommend(
     direct.sort(key=lambda x: (-x["score"], x["cook_time"], x["name"]))
     one_more.sort(key=lambda x: (-x["score"], x["cook_time"], x["name"]))
 
+    # A user-selected priority ingredient is an explicit instruction, not merely a
+    # small score bonus.  Put every feasible menu using such an ingredient in a
+    # dedicated first group, while preserving time/tool/strict-cuisine filters.
+    priority_override_results = [x for x in direct if x.get("uses_priority_override")]
+    priority_override_one_more_results = [x for x in one_more if x.get("uses_priority_override")]
+    priority_recipe_ids = {
+        x["recipe_id"] for x in priority_override_results + priority_override_one_more_results
+    }
+    direct = [x for x in direct if x["recipe_id"] not in priority_recipe_ids]
+    one_more = [x for x in one_more if x["recipe_id"] not in priority_recipe_ids]
+
     def cuisine_matches(item: dict[str, Any]) -> bool:
         return preferred_cuisine == "상관없음" or item["cuisine"] == preferred_cuisine
 
@@ -895,6 +917,22 @@ def recommend(
     alternative_one_more = alternative_exact_one + alternative_other_type_one
 
     messages: list[str] = []
+    if override_ingredient_names:
+        override_label = ", ".join(override_ingredient_names)
+        if priority_override_results:
+            messages.append(
+                f"사용자 지정 우선 재료({override_label})를 활용하는 바로 조리 메뉴 "
+                f"{len(priority_override_results)}개를 가장 먼저 표시합니다."
+            )
+        elif priority_override_one_more_results:
+            messages.append(
+                f"사용자 지정 우선 재료({override_label})를 활용하는 메뉴는 현재 항목 하나가 더 필요합니다."
+            )
+        else:
+            messages.append(
+                f"사용자 지정 우선 재료({override_label})를 활용하는 메뉴가 현재 시간·조리기구·계열 조건에는 없습니다."
+            )
+
     condition_label = (
         f"{preferred_cuisine}·{preferred_meal_type}"
         if preferred_cuisine != "상관없음" and preferred_meal_type != "상관없음"
@@ -902,8 +940,12 @@ def recommend(
         else preferred_meal_type if preferred_meal_type != "상관없음"
         else "선택 조건"
     )
-    if preferred_exact:
-        messages.append(f"{condition_label}에 완전히 맞는 바로 조리 메뉴 {len(preferred_exact)}개를 찾았습니다.")
+    priority_exact_count = sum(
+        1 for item in priority_override_results if cuisine_matches(item) and type_matches(item)
+    )
+    exact_total = len(preferred_exact) + priority_exact_count
+    if exact_total:
+        messages.append(f"{condition_label}에 완전히 맞는 바로 조리 메뉴 {exact_total}개를 찾았습니다.")
     else:
         messages.append(f"현재 재고와 조리 조건을 모두 만족하는 {condition_label} 메뉴는 없습니다.")
     if preferred_other_type and preferred_meal_type != "상관없음":
@@ -920,6 +962,8 @@ def recommend(
         messages.append(suggestion["message"])
 
     all_grouped = [
+        priority_override_results,
+        priority_override_one_more_results,
         preferred_exact,
         preferred_other_type,
         preferred_exact_one,
@@ -949,6 +993,8 @@ def recommend(
         "preferred_rejection_counts": dict(preferred_rejection_counts),
         "unlock_suggestions": unlock_suggestions,
         "counts": {
+            "priority_override_direct": len(priority_override_results),
+            "priority_override_one_more": len(priority_override_one_more_results),
             "preferred_exact_direct": len(preferred_exact),
             "preferred_other_type_direct": len(preferred_other_type),
             "preferred_exact_one_more": len(preferred_exact_one),
@@ -971,6 +1017,8 @@ def recommend(
             "analysis_messages": messages,
             "request_summary": request_summary,
             "diagnostics": diagnostics,
+            "priority_override_results": [],
+            "priority_override_one_more_results": [],
             "preferred_exact_results": [],
             "preferred_other_type_results": [],
             "preferred_exact_one_more_results": [],
@@ -988,6 +1036,8 @@ def recommend(
             "inventory_priority": enriched,
         }
 
+    priority_override_out = priority_override_results[:6]
+    priority_override_one_more_out = priority_override_one_more_results[:5]
     preferred_exact_out = preferred_exact[:5]
     preferred_other_type_out = preferred_other_type[:4]
     preferred_exact_one_out = preferred_exact_one[:5]
@@ -1001,11 +1051,13 @@ def recommend(
     preferred_one_more_out = preferred_exact_one_out + preferred_other_type_one_out
     alternatives_out = alternative_exact_out + alternative_other_type_out
     alternative_one_more_out = alternative_exact_one_out + alternative_other_type_one_out
-    combined_direct = preferred_direct_out + [
-        x for x in alternatives_out if x["recipe_id"] not in {y["recipe_id"] for y in preferred_direct_out}
+    combined_direct = priority_override_out + preferred_direct_out + [
+        x for x in alternatives_out
+        if x["recipe_id"] not in {y["recipe_id"] for y in priority_override_out + preferred_direct_out}
     ]
-    combined_one_more = preferred_one_more_out + [
-        x for x in alternative_one_more_out if x["recipe_id"] not in {y["recipe_id"] for y in preferred_one_more_out}
+    combined_one_more = priority_override_one_more_out + preferred_one_more_out + [
+        x for x in alternative_one_more_out
+        if x["recipe_id"] not in {y["recipe_id"] for y in priority_override_one_more_out + preferred_one_more_out}
     ]
 
     return {
@@ -1020,6 +1072,8 @@ def recommend(
             "weights": MODE_WEIGHTS[request["recommendation_mode"]],
             "note": "식품 안전 확률이 아니라 서비스 정책에 따라 후보의 상대 순위를 정하는 점수입니다.",
         },
+        "priority_override_results": priority_override_out,
+        "priority_override_one_more_results": priority_override_one_more_out,
         "preferred_exact_results": preferred_exact_out,
         "preferred_other_type_results": preferred_other_type_out,
         "preferred_exact_one_more_results": preferred_exact_one_out,

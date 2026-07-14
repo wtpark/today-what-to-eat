@@ -402,3 +402,52 @@ def test_tool_alternative_groups():
         response = client.post("/recommend", json=payload)
         names = [x["name"] for x in response.json().get("preferred_direct_results", [])]
         assert "계란찜" in names
+
+
+def test_user_priority_override_gets_dedicated_first_group():
+    """A manually prioritized ingredient must affect the visible recommendation groups."""
+    with TestClient(app) as client:
+        created_response = client.post(
+            "/ingredients",
+            json={
+                "ingredient_id": "glass_noodle",
+                "detail_name": "우선 사용 테스트 당면",
+                "quantity": 1,
+                "unit": "봉",
+                "storage": "실온",
+                "purchase_date": date.today().isoformat(),
+                "priority_override": True,
+                "condition_status": "normal",
+            },
+        )
+        assert created_response.status_code == 201
+        created = created_response.json()["item"]
+        assert created["priority_override"] is True
+        assert created["action"] == "사용자 지정 우선 사용"
+
+        inventory = client.get("/ingredients").json()["items"]
+        priority_items = [item for item in inventory if item.get("priority_override")]
+        assert priority_items
+        assert priority_items[0]["ingredient_id"] == "glass_noodle"
+
+        owned_ids = [item["id"] for item in SEASONING_SEED]
+        response = client.post(
+            "/recommend",
+            json=recommendation_payload(
+                preferred_cuisine="한식",
+                cuisine_preference_strength="strict",
+                preferred_meal_type="면",
+                max_cooking_minutes=60,
+                appliances=["프라이팬"],
+                temporary_owned_seasoning_ids=owned_ids,
+            ),
+        )
+        assert response.status_code == 200
+        body = response.json()
+        priority_names = [item["name"] for item in body.get("priority_override_results", [])]
+        assert "잡채" in priority_names
+        japchae = next(item for item in body["priority_override_results"] if item["name"] == "잡채")
+        assert japchae["uses_priority_override"] is True
+        assert "당면" in japchae["priority_override_names"]
+        assert any("직접 우선 지정한 당면" in reason for reason in japchae["reasons"])
+        assert "잡채" not in [item["name"] for item in body.get("preferred_exact_results", [])]
