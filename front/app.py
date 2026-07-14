@@ -320,6 +320,7 @@ COMMON_INGREDIENTS = ["egg", "onion", "pork", "chicken", "tofu", "soft_tofu", "d
 
 for key, default in {
     "nav": "🏠 홈",
+    "inventory_view_mode": "카드",
     "add_prefill": None,
     "form_generation": 0,
     "recommendation_result": None,
@@ -481,10 +482,43 @@ elif st.session_state.nav == "🧊 냉장고 현황":
         st.stop()
 
     items = inventory_data["items"]
-    f1, f2, f3 = st.columns([1, 1, 2])
-    view_mode = f1.radio("보기", ["카드", "리스트"], horizontal=True)
-    sort_mode = f2.selectbox("정렬", ["소비 우선도", "표시기한", "구매일", "이름"])
-    search = f3.text_input("냉장고 검색", placeholder="식재료명 또는 상세명")
+    f1, f2, f3 = st.columns([1.35, 1, 2])
+
+    # 카드/리스트 전환은 명시적인 session_state로 관리합니다.
+    # st.radio의 위젯 상태가 화면 재실행 과정에서 되돌아가는 문제를 방지합니다.
+    with f1:
+        st.caption("보기")
+        card_col, list_col = st.columns(2)
+
+        if card_col.button(
+            "카드",
+            key="inventory_card_view_button",
+            use_container_width=True,
+            type="primary" if st.session_state.inventory_view_mode == "카드" else "secondary",
+        ):
+            st.session_state.inventory_view_mode = "카드"
+            st.rerun()
+
+        if list_col.button(
+            "리스트",
+            key="inventory_list_view_button",
+            use_container_width=True,
+            type="primary" if st.session_state.inventory_view_mode == "리스트" else "secondary",
+        ):
+            st.session_state.inventory_view_mode = "리스트"
+            st.rerun()
+
+    view_mode = st.session_state.inventory_view_mode
+    sort_mode = f2.selectbox(
+        "정렬",
+        ["소비 우선도", "표시기한", "구매일", "이름"],
+        key="inventory_sort_mode",
+    )
+    search = f3.text_input(
+        "냉장고 검색",
+        placeholder="식재료명 또는 상세명",
+        key="inventory_search",
+    )
 
     filtered = [x for x in items if not search or search.lower() in f"{x['ingredient_name']} {x['detail_name']}".lower()]
     if sort_mode == "표시기한":
@@ -505,7 +539,26 @@ elif st.session_state.nav == "🧊 냉장고 현황":
                 "소비 우선도": x["priority_score"], "상태": x["action"], "정보 신뢰도": x["confidence"],
             } for x in filtered
         ])
-        st.dataframe(frame, use_container_width=True, hide_index=True)
+        table_height = min(700, max(180, 38 * (len(frame) + 1)))
+        st.dataframe(
+            frame,
+            use_container_width=True,
+            hide_index=True,
+            height=table_height,
+            column_config={
+                "ID": st.column_config.NumberColumn("구매 묶음", format="#%d", width="small"),
+                "식재료": st.column_config.TextColumn("식재료", width="medium"),
+                "상세": st.column_config.TextColumn("상세명", width="medium"),
+                "수량": st.column_config.TextColumn("수량", width="small"),
+                "보관": st.column_config.TextColumn("보관 위치", width="small"),
+                "구매일": st.column_config.TextColumn("구매일", width="small"),
+                "표시기한": st.column_config.TextColumn("표시기한", width="small"),
+                "개봉": st.column_config.TextColumn("개봉", width="small"),
+                "소비 우선도": st.column_config.NumberColumn("소비 우선도", format="%.1f점", width="small"),
+                "상태": st.column_config.TextColumn("권장 행동", width="medium"),
+                "정보 신뢰도": st.column_config.TextColumn("정보 신뢰도", width="small"),
+            },
+        )
     else:
         for item in filtered:
             with st.container(border=True):
