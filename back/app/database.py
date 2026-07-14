@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parents[1]
 DEFAULT_DB_PATH = BASE_DIR / "data" / "today_menu.db"
 SCHEMA_PATH = BASE_DIR / "sql" / "schema.sql"
 SEED_DIR = BASE_DIR / "seed"
-SEED_VERSION = "2026-07-14-final"
+SEED_VERSION = "2026-07-14-final-fixed2"
 
 
 def get_db_path() -> Path:

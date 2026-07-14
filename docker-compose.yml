@@ -1,11 +1,15 @@
+name: today-what-to-eat-final-fixed2
+
 services:
   back:
+    image: today-what-to-eat-back:final-fixed2
     build: ./back
-    container_name: today-menu-back
+    container_name: today-menu-back-fixed2
     restart: always
     environment:
       DB_PATH: /app/data/today_menu.db
       TZ: Asia/Seoul
+      APP_BUILD: final-fixed2
     expose:
       - "8000"
     ports:
@@ -26,12 +30,14 @@ services:
       start_period: 15s
 
   front:
+    image: today-what-to-eat-front:final-fixed2
     build: ./front
-    container_name: today-menu-front
+    container_name: today-menu-front-fixed2
     restart: always
     environment:
       API_URL: http://back:8000
       TZ: Asia/Seoul
+      APP_BUILD: final-fixed2
     ports:
       - "80:8501"
     depends_on:
@@ -40,3 +46,4 @@ services:
 
 volumes:
   today_menu_data:
+    name: today-what-to-eat_today_menu_data

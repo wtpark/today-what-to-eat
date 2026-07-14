@@ -35,13 +35,13 @@ FastAPI lifespan에서 다음을 수행한다.
 ## 조회
 
 ```bash
-sudo docker exec today-menu-back python /app/scripts/inspect_db.py
+sudo docker exec today-menu-back-fixed2 python /app/scripts/inspect_db.py
 ```
 
 직접 SQL:
 
 ```bash
-sudo docker exec today-menu-back python - <<'PY'
+sudo docker exec today-menu-back-fixed2 python - <<'PY'
 import sqlite3
 conn = sqlite3.connect('/app/data/today_menu.db')
 for row in conn.execute('SELECT id, ingredient_id, quantity, unit FROM inventory'):
@@ -52,13 +52,13 @@ PY
 ## 백업
 
 ```bash
-sudo docker cp today-menu-back:/app/data/today_menu.db ./today_menu_backup.db
+sudo docker cp today-menu-back-fixed2:/app/data/today_menu.db ./today_menu_backup.db
 ```
 
 ## 사용자 데이터 초기화
 
 ```bash
-sudo docker exec -it today-menu-back python /app/scripts/reset_user_data.py
+sudo docker exec -it today-menu-back-fixed2 python /app/scripts/reset_user_data.py
 ```
 
 화면 지시에 따라 `RESET`을 입력한다.

@@ -12,6 +12,21 @@
 
 AWS Learner Lab에서 인스턴스를 중지했다 다시 시작하면 퍼블릭 IPv4가 바뀔 수 있으므로, 배포 주소는 시연 직전에 다시 확인합니다.
 
+## 최종 보완판 확인 방법
+
+이 배포본은 기존 이미지와 혼동되지 않도록 폴더·Docker 이미지·컨테이너·health 식별자를 모두 `final-fixed2`로 분리했습니다.
+
+정상 배포 시 `/health`에서 반드시 다음 두 값이 보여야 합니다.
+
+```json
+{
+  "seed_version": "2026-07-14-final-fixed2",
+  "app_build": "final-fixed2"
+}
+```
+
+상단 메뉴에는 **식사 기록이 없어야 하며**, 메뉴 추천 결과에는 사용자 지정 우선 재료가 있을 때 **사용자 지정 우선 재료 활용 메뉴** 구역이 가장 먼저 표시됩니다.
+
 ## 핵심 기능
 
 - 식재료를 구매 묶음 단위로 등록·수정·삭제
@@ -104,7 +119,7 @@ SQLite 데이터베이스 + Docker volume
 ## 프로젝트 구조
 
 ```text
-today-what-to-eat/
+today-what-to-eat-final-fixed2/
 ├─ front/
 │  ├─ app.py
 │  ├─ Dockerfile
@@ -139,8 +154,8 @@ sudo docker compose ps
 정상 상태:
 
 ```text
-today-menu-back    Up (healthy)
-today-menu-front   Up
+today-menu-back-fixed2    Up (healthy)
+today-menu-front-fixed2   Up
 ```
 
 상태 확인:
@@ -158,7 +173,8 @@ curl -I http://127.0.0.1
   "database": "connected",
   "master_ingredients": 69,
   "recipes": 73,
-  "seed_version": "2026-07-14-final"
+  "seed_version": "2026-07-14-final-fixed2",
+  "app_build": "final-fixed2"
 }
 ```
 
@@ -199,7 +215,7 @@ python3 scripts/check_orphan_ingredients.py
 컨테이너 DB 확인:
 
 ```bash
-sudo docker exec today-menu-back python /app/scripts/inspect_db.py
+sudo docker exec today-menu-back-fixed2 python /app/scripts/inspect_db.py
 ```
 
 ## 주요 API

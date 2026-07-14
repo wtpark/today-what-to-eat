@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from contextlib import asynccontextmanager
 from datetime import date, datetime, timedelta
 from typing import Any
@@ -32,6 +33,7 @@ from .scoring import enrich_inventory_priority, now_kst, recommend
 from .substitutions import allowed_actual_ingredient_ids
 
 KST = ZoneInfo("Asia/Seoul")
+APP_BUILD = os.getenv("APP_BUILD", "final-fixed2")
 
 
 @asynccontextmanager
@@ -70,6 +72,7 @@ def health() -> dict[str, Any]:
             "recipes": recipes,
             "inventory_lots": inventory,
             "seed_version": seed_row[0] if seed_row else "unknown",
+            "app_build": APP_BUILD,
         }
     except Exception as exc:  # pragma: no cover - health should expose startup failures
         raise HTTPException(status_code=503, detail=f"database unavailable: {exc}") from exc

@@ -1,5 +1,8 @@
 FROM python:3.12-slim
 
+LABEL org.opencontainers.image.title="today-what-to-eat" \
+      org.opencontainers.image.version="final-fixed2"
+
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     API_URL=http://back:8000

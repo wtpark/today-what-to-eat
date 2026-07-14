@@ -54,7 +54,8 @@ def test_full_flow_and_catalog_balance():
         assert health.status_code == 200
         assert health.json()["master_ingredients"] == EXPECTED_INGREDIENTS
         assert health.json()["recipes"] == EXPECTED_RECIPES
-        assert health.json()["seed_version"].endswith("final")
+        assert health.json()["seed_version"].endswith("final-fixed2")
+        assert health.json()["app_build"] == "final-fixed2"
 
         catalog = client.get("/catalog/summary").json()
         assert sum(catalog["recipes_by_cuisine"].values()) == EXPECTED_RECIPES

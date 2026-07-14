@@ -11,6 +11,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 API_URL = os.getenv("API_URL", "http://localhost:8000").rstrip("/")
+APP_BUILD = os.getenv("APP_BUILD", "final-fixed2")
 KST = ZoneInfo("Asia/Seoul")
 TIMEOUT = 15
 
@@ -348,6 +349,7 @@ st.radio("메뉴", nav_options, horizontal=True, key="nav", label_visibility="co
 
 with st.sidebar:
     st.subheader("서비스 상태")
+    st.caption(f"빌드: {APP_BUILD}")
     if health:
         st.success("FastAPI · DB 연결됨")
         st.json(health, expanded=False)
